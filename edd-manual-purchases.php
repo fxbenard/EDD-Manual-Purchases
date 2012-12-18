@@ -10,7 +10,7 @@ Contributors: mordauk
 */
 
 class EDD_Manual_Purchases {
-	
+
 	private static $instance;
 
 	/**
@@ -40,9 +40,9 @@ class EDD_Manual_Purchases {
 	 */
 	public function __construct() {
 
-		define( 'EDD_MP_STORE_API_URL', 'http://easydigitaldownloads.com' ); 
-		define( 'EDD_MP_PRODUCT_NAME', 'Manual Purchases' ); 
-		define( 'EDD_MP_VERSION', '1.1.2' ); 
+		define( 'EDD_MP_STORE_API_URL', 'http://easydigitaldownloads.com' );
+		define( 'EDD_MP_PRODUCT_NAME', 'Manual Purchases' );
+		define( 'EDD_MP_VERSION', '1.1.2' );
 
 		if( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
 			// load our custom updater
@@ -80,7 +80,7 @@ class EDD_Manual_Purchases {
 
 		// check for download price variations via ajax
 		add_action( 'wp_ajax_edd_mp_check_for_variations', array( $this, 'check_for_variations' ) );
-		
+
 		// process payment creation
 		add_action( 'edd_create_payment', array( $this, 'create_payment' ) );
 
@@ -99,7 +99,7 @@ class EDD_Manual_Purchases {
 		$edd_mp_license_key = isset( $edd_options['edd_mp_license_key'] ) ? trim( $edd_options['edd_mp_license_key'] ) : '';
 
 		// setup the updater
-		$edd_updater = new EDD_SL_Plugin_Updater( EDD_MP_STORE_API_URL, __FILE__, array( 
+		$edd_updater = new EDD_SL_Plugin_Updater( EDD_MP_STORE_API_URL, __FILE__, array(
 				'version' 	=> EDD_MP_VERSION, 		// current version number
 				'license' 	=> $edd_mp_license_key, // license key (used get_option above to retrieve from DB)
 				'item_name' => EDD_MP_PRODUCT_NAME, // name of this plugin
@@ -179,7 +179,7 @@ class EDD_Manual_Purchases {
 								$this.after( response );
 								$this.parent().find('img').hide();
 							});
-						} else {							
+						} else {
 							$this.next('select').remove();
 							$this.parent().find('img').hide();
 						}
@@ -234,8 +234,9 @@ class EDD_Manual_Purchases {
 							</td>
 						</tr>
 					</tbody>
-				</table>	
+				</table>
 				<?php wp_nonce_field( 'edd_create_payment_nonce', 'edd_create_payment_nonce' ); ?>
+				<input type="hidden" name="edd-gateway" value="manual_purchases"/>
 				<input type="hidden" name="edd-action" value="create_payment" />
 				<?php submit_button(__('Create Payment', 'edd-manual-purchases') ); ?>
 			</form>
@@ -246,12 +247,12 @@ class EDD_Manual_Purchases {
 	public static function check_for_variations() {
 
 		if( isset($_POST['nonce']) && wp_verify_nonce($_POST['nonce'], 'edd_create_payment_nonce') ) {
-			
+
 			$download_id = $_POST['download_id'];
 
 			if(edd_has_variable_prices($download_id)) {
 
-				$prices = get_post_meta($download_id, 'edd_variable_prices', true); 
+				$prices = get_post_meta($download_id, 'edd_variable_prices', true);
 				$response = '';
 				if( $prices ) {
 					$response = '<select name="downloads[' . $_POST['key'] . '][options][price_id]" class="edd-mp-price-select">';
@@ -286,7 +287,7 @@ class EDD_Manual_Purchases {
 				return; // no user assigned
 
 			$user_id 	= $user ? $user->ID : 0;
-			$email 		= $user ? $user->user_email : strip_tags( trim( $data['user'] ) ); 
+			$email 		= $user ? $user->user_email : strip_tags( trim( $data['user'] ) );
 			$user_first	= $user ? $user->first_name : '';
 			$user_last	= $user ? $user->last_name : '';
 
@@ -302,14 +303,14 @@ class EDD_Manual_Purchases {
 			$price = ( isset( $data['amount'] ) && $data['amount'] !== false ) ? strip_tags( trim( $data['amount'] ) ) : false;
 
 			$cart_details = array();
-			
+
 			$total = 0;
 			foreach( $data['downloads'] as $key => $download ) {
 
 				// calculate total purchase cost
 
 				if( isset( $download['options'] ) ) {
-					
+
 					$prices 	= get_post_meta( $download['id'], 'edd_variable_prices', true );
 					$key 		= $download['options']['price_id'];
 					$item_price = $prices[$key]['amount'];
@@ -322,7 +323,7 @@ class EDD_Manual_Purchases {
 					'name' 			=> get_the_title( $download['id'] ),
 					'id' 			=> $download['id'],
 					'item_number' 	=> $key,
-					'price' 		=> $item_price,
+					'price' 		=> $price ? 0 : $item_price,
 					'quantity' 		=> 1,
 				);
 				$total += $item_price;
@@ -397,12 +398,12 @@ class EDD_Manual_Purchases {
 		$license = sanitize_text_field( $_POST['edd_settings_misc']['edd_mp_license_key'] );
 
 		// data to send in our API request
-		$api_params = array( 
-			'edd_action'=> 'activate_license', 
-			'license' 	=> $license, 
+		$api_params = array(
+			'edd_action'=> 'activate_license',
+			'license' 	=> $license,
 			'item_name' => urlencode( EDD_MP_PRODUCT_NAME ) // the name of our product in EDD
 		);
-		
+
 		// Call the custom API.
 		$response = wp_remote_get( add_query_arg( $api_params, EDD_MP_STORE_API_URL ), array( 'timeout' => 15, 'body' => $api_params, 'sslverify' => false ) );
 
