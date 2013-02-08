@@ -358,8 +358,7 @@ class EDD_Manual_Purchases {
 	}
 
 	public static function payment_created_notice() {
-		$edd_access_level = edd_get_menu_access_level();
-		if( isset($_GET['edd-message'] ) && $_GET['edd-message'] == 'payment_created' && current_user_can($edd_access_level ) ) {
+		if( isset($_GET['edd-message'] ) && $_GET['edd-message'] == 'payment_created' && current_user_can( 'view_shop_reports' ) ) {
 			add_settings_error( 'edd-notices', 'edd-payment-created', __('The payment has been created.', 'edd-manual-purchases'), 'updated' );
 		}
 	}
