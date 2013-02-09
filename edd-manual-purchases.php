@@ -131,7 +131,7 @@ class EDD_Manual_Purchases {
 
 	public static function submenu() {
 		global $edd_create_payment_page;
-		$edd_create_payment_page = add_submenu_page( 'options.php', __('Create Payment', 'edd-manual-purchases'), __('Create Payment', 'edd-manual-purchases'), 'manage_options', 'edd-manual-purchase', array( __CLASS__, 'payment_creation_form' ) );
+		$edd_create_payment_page = add_submenu_page( 'options.php', __('Create Payment', 'edd-manual-purchases'), __('Create Payment', 'edd-manual-purchases'), 'view_shop_reports', 'edd-manual-purchase', array( __CLASS__, 'payment_creation_form' ) );
 	}
 
 	public static function payment_creation_form() {
