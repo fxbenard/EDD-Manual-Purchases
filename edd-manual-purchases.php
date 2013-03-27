@@ -233,6 +233,19 @@ class EDD_Manual_Purchases {
 								<div class="description"><?php _e('Enter the total purchase amount, or leave blank to auto calculate price based on the selected items above. Use 0.00 for 0.', 'edd-manual-purchases'); ?></div>
 							</td>
 						</tr>
+						<?php if( function_exists( 'eddc_record_commission' ) ) : ?>
+						<tr class="form-field">
+							<th scope="row" valign="top">
+								<?php _e('Commission', 'edd-manual-purchases'); ?>
+							</th>
+							<td class="edd-mp-downloads">
+								<label for="edd-mp-commission">
+									<input type="checkbox" id="edd-mp-commission" name="commission" style="width: auto;"/>
+									<?php _e('Record commissions (if any) for this manual purchase?', 'edd-manual-purchases'); ?>
+								</label>
+							</td>
+						</tr>
+						<?php endif; ?>
 					</tbody>
 				</table>
 				<?php wp_nonce_field( 'edd_create_payment_nonce', 'edd_create_payment_nonce' ); ?>
@@ -273,8 +286,6 @@ class EDD_Manual_Purchases {
 
 			global $edd_options;
 
-			//echo '<pre>'; print_r( $data ); echo '</pre>'; exit;
-
 			$user = strip_tags( trim( $data['user'] ) );
 
 			if( is_numeric( $user ) )
@@ -290,7 +301,6 @@ class EDD_Manual_Purchases {
 			$email 		= $user ? $user->user_email : strip_tags( trim( $data['user'] ) );
 			$user_first	= $user ? $user->first_name : '';
 			$user_last	= $user ? $user->last_name : '';
-
 
 			$user_info = array(
 				'id' 			=> $user_id,
