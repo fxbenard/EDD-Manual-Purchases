@@ -198,7 +198,9 @@ class EDD_Manual_Purchases {
 									<?php
 									$args = array(
 										'post_type' => 'download',
-										'posts_per_page' => -1,
+										'nopaging'  => true,
+										'orderby'   => 'title',
+										'order'     => 'ASC'
 									);
 									$downloads = get_posts( apply_filters( 'edd_mp_downloads_query', $args ) );
 									if( $downloads ) {
