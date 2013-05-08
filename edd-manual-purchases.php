@@ -200,13 +200,18 @@ class EDD_Manual_Purchases {
 										'post_type' => 'download',
 										'nopaging'  => true,
 										'orderby'   => 'title',
-										'order'     => 'ASC'
+										'order'     => 'ASC',
+										'post_status' => 'any'
 									);
 									$downloads = get_posts( apply_filters( 'edd_mp_downloads_query', $args ) );
 									if( $downloads ) {
 										echo '<option value="0">' . sprintf( __('Choose %s', 'edd-manual-purchases'), esc_html( edd_get_label_plural() ) ) . '</option>';
 										foreach( $downloads as $download ) {
-											echo '<option value="' . $download->ID . '">' . esc_html( get_the_title( $download->ID ) ) . '</option>';
+											if( $download->post_status != 'publish' )
+												$prefix = strtoupper( $download->post_status ) . ' - ';
+											else
+												$prefix = '';
+											echo '<option value="' . $download->ID . '">' . $prefix . esc_html( get_the_title( $download->ID ) ) . '</option>';
 										}
 									} else {
 										echo '<option value="0">' . sprintf( __('No %s created yet', 'edd-manual-purchases'), edd_get_label_plural() ) . '</option>';
