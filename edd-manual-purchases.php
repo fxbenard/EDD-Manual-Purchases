@@ -45,7 +45,7 @@ class EDD_Manual_Purchases {
 		define( 'EDD_MP_VERSION', '1.2' );
 
 		if( ! class_exists( 'EDD_License' ) ) {
-			include( dirname( __FILE__ ) . 'includes/EDD_License_Handler.php' );
+			include( dirname( __FILE__ ) . '/EDD_License_Handler.php' );
 		}
 
 		$this->init();
