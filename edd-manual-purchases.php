@@ -329,8 +329,8 @@ class EDD_Manual_Purchases {
 				if( isset( $download['options'] ) ) {
 
 					$prices 	= get_post_meta( $download['id'], 'edd_variable_prices', true );
-					$key 		= $download['options']['price_id'];
-					$item_price = $prices[$key]['amount'];
+					$price_key 		= $download['options']['price_id'];
+					$item_price = $prices[$price_key]['amount'];
 
 				} else {
 					$item_price = edd_get_download_price( $download['id'] );
