@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Manual Purchases
 Plugin URI: http://easydigitaldownloads.com/extension/manual-purchases/
 Description: Provides an admin interface for manually creating purchase orders in Easy Digital Downloads
-Version: 1.1.7
+Version: 1.2
 Author: Pippin Williamson
 Author URI:  http://pippinsplugins.com
 Contributors: mordauk
@@ -42,11 +42,10 @@ class EDD_Manual_Purchases {
 
 		define( 'EDD_MP_STORE_API_URL', 'http://easydigitaldownloads.com' );
 		define( 'EDD_MP_PRODUCT_NAME', 'Manual Purchases' );
-		define( 'EDD_MP_VERSION', '1.1.7' );
+		define( 'EDD_MP_VERSION', '1.2' );
 
-		if( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
-			// load our custom updater
-			include( dirname( __FILE__ ) . '/EDD_SL_Plugin_Updater.php' );
+		if( ! class_exists( 'EDD_License' ) ) {
+			include( dirname( __FILE__ ) . 'includes/EDD_License_Handler.php' );
 		}
 
 		$this->init();
@@ -94,18 +93,7 @@ class EDD_Manual_Purchases {
 		add_action( 'admin_init', array( $this, 'activate_license' ) );
 
 		// auto updater
-
-		// retrieve our license key from the DB
-		$edd_mp_license_key = isset( $edd_options['edd_mp_license_key'] ) ? trim( $edd_options['edd_mp_license_key'] ) : '';
-
-		// setup the updater
-		$edd_updater = new EDD_SL_Plugin_Updater( EDD_MP_STORE_API_URL, __FILE__, array(
-				'version' 	=> EDD_MP_VERSION, 		// current version number
-				'license' 	=> $edd_mp_license_key, // license key (used get_option above to retrieve from DB)
-				'item_name' => EDD_MP_PRODUCT_NAME, // name of this plugin
-				'author' 	=> 'Pippin Williamson'  // author of this plugin
-			)
-		);
+		$eddc_license = new EDD_License( __FILE__, EDD_MP_PRODUCT_NAME, EDD_MP_VERSION, 'Pippin Williamson' );
 
 	}
 
