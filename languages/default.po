@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EDD Manual Purchases\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-06 10:11-0600\n"
-"PO-Revision-Date: 2013-08-06 10:11-0600\n"
+"POT-Creation-Date: 2013-08-06 10:19-0600\n"
+"PO-Revision-Date: 2013-08-06 10:19-0600\n"
 "Last-Translator: Pippin Williamson <pippin@pippinsplugins.com>\n"
 "Language-Team: Pippin Williamson <pippin@pippinsplugins.com>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../edd-manual-purchases.php:115
 #: ../edd-manual-purchases.php:122
-#: ../edd-manual-purchases.php:249
+#: ../edd-manual-purchases.php:260
 msgid "Create Payment"
 msgstr ""
 
@@ -56,27 +56,35 @@ msgstr ""
 msgid "Enter the total purchase amount, or leave blank to auto calculate price based on the selected items above. Use 0.00 for 0."
 msgstr ""
 
-#: ../edd-manual-purchases.php:234
+#: ../edd-manual-purchases.php:233
+msgid "Send Receipt"
+msgstr ""
+
+#: ../edd-manual-purchases.php:238
+msgid "Send the purchase receipt to the buyer?"
+msgstr ""
+
+#: ../edd-manual-purchases.php:245
 msgid "Commission"
 msgstr ""
 
-#: ../edd-manual-purchases.php:239
+#: ../edd-manual-purchases.php:250
 msgid "Record commissions (if any) for this manual purchase?"
 msgstr ""
 
-#: ../edd-manual-purchases.php:367
+#: ../edd-manual-purchases.php:382
 msgid "The payment has been created."
 msgstr ""
 
-#: ../edd-manual-purchases.php:375
+#: ../edd-manual-purchases.php:390
 msgid "Manual Purchases"
 msgstr ""
 
-#: ../edd-manual-purchases.php:382
+#: ../edd-manual-purchases.php:397
 msgid "License Key"
 msgstr ""
 
-#: ../edd-manual-purchases.php:383
+#: ../edd-manual-purchases.php:398
 msgid "Enter your license for Manual Purchasing to receive automatic upgrades"
 msgstr ""
 
