@@ -228,6 +228,17 @@ class EDD_Manual_Purchases {
 								<div class="description"><?php _e('Enter the total purchase amount, or leave blank to auto calculate price based on the selected items above. Use 0.00 for 0.', 'edd-manual-purchases'); ?></div>
 							</td>
 						</tr>
+						<tr class="form-field">
+							<th scope="row" valign="top">
+								<?php _e('Send Receipt', 'edd-manual-purchases'); ?>
+							</th>
+							<td class="edd-mp-receipt">
+								<label for="edd-mp-receipt">
+									<input type="checkbox" id="edd-mp-receipt" name="receipt" style="width: auto;" checked="1" value="1"/>
+									<?php _e('Send the purchase receipt to the buyer?', 'edd-manual-purchases'); ?>
+								</label>
+							</td>
+						</tr>
 						<?php if( function_exists( 'eddc_record_commission' ) ) : ?>
 						<tr class="form-field">
 							<th scope="row" valign="top">
@@ -353,6 +364,10 @@ class EDD_Manual_Purchases {
 			);
 
 			$payment_id = edd_insert_payment( $purchase_data );
+
+			if( empty( $data['receipt'] ) || $data['receipt'] != '1' ) {
+				remove_action( 'edd_complete_purchase', 'edd_trigger_purchase_receipt', 999 );
+			}
 
 			// increase stats and log earnings
 			edd_update_payment_status( $payment_id, 'complete' ) ;

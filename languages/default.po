@@ -2,73 +2,90 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EDD Manual Purchases\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-14 12:59-0600\n"
-"PO-Revision-Date: 2012-09-14 12:59-0600\n"
+"POT-Creation-Date: 2013-08-06 10:11-0600\n"
+"PO-Revision-Date: 2013-08-06 10:11-0600\n"
 "Last-Translator: Pippin Williamson <pippin@pippinsplugins.com>\n"
 "Language-Team: Pippin Williamson <pippin@pippinsplugins.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_x;_n\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-Language: English\n"
 "X-Poedit-Country: United States\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../edd-manual-purchases.php:124
-#: ../edd-manual-purchases.php:131
-#: ../edd-manual-purchases.php:237
+#: ../edd-manual-purchases.php:115
+#: ../edd-manual-purchases.php:122
+#: ../edd-manual-purchases.php:249
 msgid "Create Payment"
 msgstr ""
 
-#: ../edd-manual-purchases.php:137
+#: ../edd-manual-purchases.php:128
 msgid "Create New Payment"
 msgstr ""
 
-#: ../edd-manual-purchases.php:202
+#: ../edd-manual-purchases.php:196
 #, php-format
 msgid "Choose %s"
 msgstr ""
 
-#: ../edd-manual-purchases.php:207
+#: ../edd-manual-purchases.php:205
 #, php-format
 msgid "No %s created yet"
 msgstr ""
 
-#: ../edd-manual-purchases.php:211
+#: ../edd-manual-purchases.php:209
 msgid "Add another"
 msgstr ""
 
-#: ../edd-manual-purchases.php:217
+#: ../edd-manual-purchases.php:215
 msgid "Buyer"
 msgstr ""
 
-#: ../edd-manual-purchases.php:221
+#: ../edd-manual-purchases.php:219
 msgid "Enter the user ID or email of the buyer"
 msgstr ""
 
-#: ../edd-manual-purchases.php:226
+#: ../edd-manual-purchases.php:224
 msgid "Amount"
 msgstr ""
 
-#: ../edd-manual-purchases.php:230
+#: ../edd-manual-purchases.php:228
 msgid "Enter the total purchase amount, or leave blank to auto calculate price based on the selected items above. Use 0.00 for 0."
 msgstr ""
 
-#: ../edd-manual-purchases.php:358
+#: ../edd-manual-purchases.php:234
+msgid "Commission"
+msgstr ""
+
+#: ../edd-manual-purchases.php:239
+msgid "Record commissions (if any) for this manual purchase?"
+msgstr ""
+
+#: ../edd-manual-purchases.php:367
 msgid "The payment has been created."
 msgstr ""
 
-#: ../edd-manual-purchases.php:366
+#: ../edd-manual-purchases.php:375
 msgid "Manual Purchases"
 msgstr ""
 
-#: ../edd-manual-purchases.php:373
+#: ../edd-manual-purchases.php:382
 msgid "License Key"
 msgstr ""
 
-#: ../edd-manual-purchases.php:374
+#: ../edd-manual-purchases.php:383
 msgid "Enter your license for Manual Purchasing to receive automatic upgrades"
+msgstr ""
+
+#: ../EDD_License_Handler.php:117
+#, php-format
+msgid "%1$s License Key"
+msgstr ""
+
+#: ../EDD_License_Handler.php:223
+msgid "Deactivate License"
 msgstr ""
 
