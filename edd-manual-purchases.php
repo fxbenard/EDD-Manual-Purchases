@@ -77,6 +77,9 @@ class EDD_Manual_Purchases {
 		// register the Create Payment submenu
 		add_action( 'admin_menu', array( $this, 'submenu' ) );
 
+		// load scripts
+		add_action( 'admin_enqueue_scripts', array( $this, 'load_scripts' ) );
+
 		// check for download price variations via ajax
 		add_action( 'wp_ajax_edd_mp_check_for_variations', array( $this, 'check_for_variations' ) );
 
@@ -120,6 +123,18 @@ class EDD_Manual_Purchases {
 	public static function submenu() {
 		global $edd_create_payment_page;
 		$edd_create_payment_page = add_submenu_page( 'options.php', __('Create Payment', 'edd-manual-purchases'), __('Create Payment', 'edd-manual-purchases'), 'view_shop_reports', 'edd-manual-purchase', array( __CLASS__, 'payment_creation_form' ) );
+	}
+
+	public static function load_scripts( $hook ) {
+
+		if( 'admin_page_edd-manual-purchase' != $hook )
+			return;
+
+		// Use minified libraries if SCRIPT_DEBUG is turned off
+		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+		$ui_style = ( 'classic' == get_user_option( 'admin_color' ) ) ? 'classic' : 'fresh';
+		wp_enqueue_style( 'jquery-ui-css', EDD_PLUGIN_URL . 'assets/css/jquery-ui-' . $ui_style . $suffix . '.css' );
 	}
 
 	public static function payment_creation_form() {
@@ -172,6 +187,12 @@ class EDD_Manual_Purchases {
 							$this.parent().find('img').hide();
 						}
 					});
+					if ($('.form-table .edd_datepicker').length > 0) {
+						var dateFormat = 'mm/dd/yy';
+						$('.edd_datepicker').datepicker({
+							dateFormat: dateFormat
+						});
+					}
 				});
 			</script>
 			<form id="edd_mp_create_payment" method="post">
@@ -248,6 +269,19 @@ class EDD_Manual_Purchases {
 								<label for="edd-mp-commission">
 									<input type="checkbox" id="edd-mp-commission" name="commission" style="width: auto;"/>
 									<?php _e('Record commissions (if any) for this manual purchase?', 'edd-manual-purchases'); ?>
+								</label>
+							</td>
+						</tr>
+						<?php endif; ?>
+						<?php if( class_exists( 'EDD_Recurring' ) ) : ?>
+						<tr class="form-field">
+							<th scope="row" valign="top">
+								<?php _e('Customer Expiration', 'edd-manual-purchases'); ?>
+							</th>
+							<td class="edd-mp-downloads">
+								<label for="edd-mp-expiration">
+									<input type="text" id="edd-mp-expiration" class="edd_datepicker" name="expiration" style="width: auto;"/>
+									<?php _e('Set the customer\'s status to Active and set their expiration date. Leave blank to leave customer as is', 'edd-manual-purchases'); ?>
 								</label>
 							</td>
 						</tr>
@@ -367,6 +401,16 @@ class EDD_Manual_Purchases {
 
 			if( empty( $data['receipt'] ) || $data['receipt'] != '1' ) {
 				remove_action( 'edd_complete_purchase', 'edd_trigger_purchase_receipt', 999 );
+			}
+
+			if( ! empty( $data['expiration'] ) && class_exists( 'EDD_Recurring_Customer' ) && $user_id > 0 ) {
+
+				$expiration = strtotime( $data['expiration'] . ' 23:59:59' );
+
+				EDD_Recurring_Customer::set_as_subscriber( $user_id );
+				EDD_Recurring_Customer::set_customer_payment_id( $user_id, $payment_id );
+				EDD_Recurring_Customer::set_customer_status( $user_id, 'active' );
+				EDD_Recurring_Customer::set_customer_expiration( $user_id, $expiration );
 			}
 
 			// increase stats and log earnings
