@@ -299,18 +299,18 @@ class EDD_Manual_Purchases {
 
 	public static function check_for_variations() {
 
-		if( isset($_POST['nonce']) && wp_verify_nonce($_POST['nonce'], 'edd_create_payment_nonce') ) {
+		if( isset($_POST['nonce'] ) && wp_verify_nonce($_POST['nonce'], 'edd_create_payment_nonce') ) {
 
-			$download_id = $_POST['download_id'];
+			$download_id = absint( $_POST['download_id'] );
 
-			if(edd_has_variable_prices($download_id)) {
+			if( edd_has_variable_prices( $download_id ) ) {
 
-				$prices = get_post_meta($download_id, 'edd_variable_prices', true);
+				$prices = get_post_meta( $download_id, 'edd_variable_prices', true );
 				$response = '';
 				if( $prices ) {
-					$response = '<select name="downloads[' . $_POST['key'] . '][options][price_id]" class="edd-mp-price-select">';
+					$response = '<select name="downloads[' . absint( $_POST['key'] ) . '][options][price_id]" class="edd-mp-price-select">';
 						foreach( $prices as $key => $price ) {
-							$response .= '<option value="' . $key . '">' . $price['name']  . '</option>';
+							$response .= '<option value="' . esc_attr( $key ) . '">' . $price['name']  . '</option>';
 						}
 					$response .= '</select>';
 				}
@@ -361,8 +361,8 @@ class EDD_Manual_Purchases {
 
 				if( isset( $download['options'] ) ) {
 
-					$prices 	= get_post_meta( $download['id'], 'edd_variable_prices', true );
-					$price_key 		= $download['options']['price_id'];
+					$prices     = get_post_meta( $download['id'], 'edd_variable_prices', true );
+					$price_key  = $download['options']['price_id'];
 					$item_price = $prices[$price_key]['amount'];
 
 				} else {
@@ -370,11 +370,11 @@ class EDD_Manual_Purchases {
 				}
 
 				$cart_details[$key] = array(
-					'name' 			=> get_the_title( $download['id'] ),
-					'id' 			=> $download['id'],
-					'item_number' 	=> $download,
-					'price' 		=> $price ? 0 : $item_price,
-					'quantity' 		=> 1,
+					'name'        => get_the_title( $download['id'] ),
+					'id'          => $download['id'],
+					'item_number' => $download,
+					'price'       => $price ? 0 : $item_price,
+					'quantity'    => 1,
 				);
 				$total += $item_price;
 
@@ -385,16 +385,16 @@ class EDD_Manual_Purchases {
 				$total = $price;
 			}
 
-			$purchase_data 		= array(
-				'price' 		=> number_format( (float) $total, 2 ),
-				'date' 			=> date( 'Y-m-d H:i:s', strtotime( '-1 day' ) ),
-				'purchase_key'	=> strtolower( md5( uniqid() ) ), // random key
-				'user_email'	=> $email,
-				'user_info' 	=> $user_info,
-				'currency'		=> $edd_options['currency'],
-				'downloads'		=> $data['downloads'],
-				'cart_details' 	=> $cart_details,
-				'status'		=> 'pending' // start with pending so we can call the update function, which logs all stats
+			$purchase_data     = array(
+				'price'        => number_format( (float) $total, 2 ),
+				'date'         => date( 'Y-m-d H:i:s', strtotime( '-1 day' ) ),
+				'purchase_key' => strtolower( md5( uniqid() ) ), // random key
+				'user_email'   => $email,
+				'user_info'    => $user_info,
+				'currency'     => $edd_options['currency'],
+				'downloads'    => $data['downloads'],
+				'cart_details' => $cart_details,
+				'status'       => 'pending' // start with pending so we can call the update function, which logs all stats
 			);
 
 			$payment_id = edd_insert_payment( $purchase_data );
