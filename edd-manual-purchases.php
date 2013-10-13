@@ -266,7 +266,7 @@ class EDD_Manual_Purchases {
 							</th>
 							<td class="edd-mp-downloads">
 								<input type="text" class="small-text edd_datepicker" id="edd-mp-date" name="date" style="width: 180px;"/>
-								<div class="description"><?php _e('Enter the purchase date.', 'edd-manual-purchases'); ?></div>
+								<div class="description"><?php _e('Enter the purchase date. Leave blank for today\'s date.', 'edd-manual-purchases'); ?></div>
 							</td>
 						</tr>
 						<?php if( function_exists( 'eddc_record_commission' ) ) : ?>
@@ -394,7 +394,7 @@ class EDD_Manual_Purchases {
 				$total = $price;
 			}
 
-			$date = ( ! empty( $data['date'] ) ) ? strip_tags( trim( $data['date'] ) ) : '-1 day';
+			$date = ! empty( $data['date'] ) ? strip_tags( trim( $data['date'] ) ) : '-1 day';
 			$date = date( 'Y-m-d H:i:s', strtotime( $date ) );
 
 			$purchase_data     = array(
