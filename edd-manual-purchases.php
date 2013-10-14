@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Manual Purchases
 Plugin URI: http://easydigitaldownloads.com/extension/manual-purchases/
 Description: Provides an admin interface for manually creating purchase orders in Easy Digital Downloads
-Version: 1.5
+Version: 1.6
 Author: Pippin Williamson
 Author URI:  http://pippinsplugins.com
 Contributors: mordauk
@@ -42,7 +42,7 @@ class EDD_Manual_Purchases {
 
 		define( 'EDD_MP_STORE_API_URL', 'http://easydigitaldownloads.com' );
 		define( 'EDD_MP_PRODUCT_NAME', 'Manual Purchases' );
-		define( 'EDD_MP_VERSION', '1.5' );
+		define( 'EDD_MP_VERSION', '1.6' );
 
 		if( ! class_exists( 'EDD_License' ) ) {
 			include( dirname( __FILE__ ) . '/EDD_License_Handler.php' );
@@ -88,12 +88,6 @@ class EDD_Manual_Purchases {
 
 		// show payment created notice
 		add_action( 'admin_notices', array( $this, 'payment_created_notice' ), 1 );
-
-		// register our license key settings
-		add_filter( 'edd_settings_misc', array( $this, 'license_settings' ), 1 );
-
-		// activate license key on settings save
-		add_action( 'admin_init', array( $this, 'activate_license' ) );
 
 		// auto updater
 		$eddc_license = new EDD_License( __FILE__, EDD_MP_PRODUCT_NAME, EDD_MP_VERSION, 'Pippin Williamson' );
@@ -439,59 +433,6 @@ class EDD_Manual_Purchases {
 		}
 	}
 
-	public static function license_settings( $settings ) {
-		$license_settings = array(
-			array(
-				'id' => 'edd_mp_license_header',
-				'name' => '<strong>' . __('Manual Purchases', 'edd-manual-purchases') . '</strong>',
-				'desc' => '',
-				'type' => 'header',
-				'size' => 'regular'
-			),
-			array(
-				'id' => 'edd_mp_license_key',
-				'name' => __('License Key', 'edd-manual-purchases'),
-				'desc' => __('Enter your license for Manual Purchasing to receive automatic upgrades', 'edd-manual-purchases'),
-				'type' => 'text',
-				'size' => 'regular'
-			)
-		);
-
-		return array_merge( $settings, $license_settings );
-	}
-
-	public static function activate_license() {
-		global $edd_options;
-		if( ! isset( $_POST['edd_settings_misc'] ) )
-			return;
-		if( ! isset( $_POST['edd_settings_misc']['edd_mp_license_key'] ) )
-			return;
-
-		if( get_option( 'edd_mp_license_active' ) == 'valid' )
-			return;
-
-		$license = sanitize_text_field( $_POST['edd_settings_misc']['edd_mp_license_key'] );
-
-		// data to send in our API request
-		$api_params = array(
-			'edd_action'=> 'activate_license',
-			'license' 	=> $license,
-			'item_name' => urlencode( EDD_MP_PRODUCT_NAME ) // the name of our product in EDD
-		);
-
-		// Call the custom API.
-		$response = wp_remote_get( add_query_arg( $api_params, EDD_MP_STORE_API_URL ), array( 'timeout' => 15, 'body' => $api_params, 'sslverify' => false ) );
-
-		// make sure the response came back okay
-		if ( is_wp_error( $response ) )
-			return false;
-
-		// decode the license data
-		$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-
-		update_option( 'edd_mp_license_active', $license_data->license );
-
-	}
 
 }
 
