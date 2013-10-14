@@ -237,7 +237,7 @@ class EDD_Manual_Purchases {
 							</th>
 							<td class="edd-mp-user">
 								<input type="text" class="small-text" id="edd-mp-user" name="user" style="width: 180px;"/>
-								<div class="description"><?php _e('Enter the user ID or email of the buyer', 'edd-manual-purchases'); ?></div>
+								<div class="description"><?php _e('Enter the user ID or email of the buyer.', 'edd-manual-purchases'); ?></div>
 							</td>
 						</tr>
 						<tr class="form-field">
@@ -290,7 +290,7 @@ class EDD_Manual_Purchases {
 							<td class="edd-mp-downloads">
 								<label for="edd-mp-expiration">
 									<input type="text" id="edd-mp-expiration" class="edd_datepicker" name="expiration" style="width: auto;"/>
-									<?php _e('Set the customer\'s status to Active and set their expiration date. Leave blank to leave customer as is', 'edd-manual-purchases'); ?>
+									<?php _e('Set the customer\'s status to Active and set their expiration date. Leave blank to leave customer as is.', 'edd-manual-purchases'); ?>
 								</label>
 							</td>
 						</tr>
