@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Manual Purchases
 Plugin URI: http://easydigitaldownloads.com/extension/manual-purchases/
 Description: Provides an admin interface for manually creating purchase orders in Easy Digital Downloads
-Version: 1.6.2
+Version: 1.7
 Author: Pippin Williamson
 Author URI:  http://pippinsplugins.com
 Contributors: mordauk
@@ -42,7 +42,7 @@ class EDD_Manual_Purchases {
 
 		define( 'EDD_MP_STORE_API_URL', 'http://easydigitaldownloads.com' );
 		define( 'EDD_MP_PRODUCT_NAME', 'Manual Purchases' );
-		define( 'EDD_MP_VERSION', '1.6.2' );
+		define( 'EDD_MP_VERSION', '1.7' );
 
 		if( ! class_exists( 'EDD_License' ) ) {
 			include( dirname( __FILE__ ) . '/EDD_License_Handler.php' );
@@ -227,11 +227,29 @@ class EDD_Manual_Purchases {
 						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<label for="edd-mp-user"><?php _e('Buyer', 'edd-manual-purchases'); ?></label>
+								<label for="edd-mp-user"><?php _e('Buyer ID or Email', 'edd-manual-purchases'); ?></label>
 							</th>
 							<td class="edd-mp-user">
 								<input type="text" class="small-text" id="edd-mp-user" name="user" style="width: 180px;"/>
 								<div class="description"><?php _e('Enter the user ID or email of the buyer.', 'edd-manual-purchases'); ?></div>
+							</td>
+						</tr>
+						<tr class="form-field">
+							<th scope="row" valign="top">
+								<label for="edd-mp-last"><?php _e('Buyer First Name', 'edd-manual-purchases'); ?></label>
+							</th>
+							<td class="edd-mp-last">
+								<input type="text" class="small-text" id="edd-mp-last" name="first" style="width: 180px;"/>
+								<div class="description"><?php _e('Enter the first name of the buyer (optional).', 'edd-manual-purchases'); ?></div>
+							</td>
+						</tr>
+						<tr class="form-field">
+							<th scope="row" valign="top">
+								<label for="edd-mp-last"><?php _e('Buyer Last Name', 'edd-manual-purchases'); ?></label>
+							</th>
+							<td class="edd-mp-last">
+								<input type="text" class="small-text" id="edd-mp-last" name="last" style="width: 180px;"/>
+								<div class="description"><?php _e('Enter the last name of the buyer (optional).', 'edd-manual-purchases'); ?></div>
 							</td>
 						</tr>
 						<tr class="form-field">
@@ -279,13 +297,11 @@ class EDD_Manual_Purchases {
 						<?php if( class_exists( 'EDD_Recurring' ) ) : ?>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<?php _e('Customer Expiration', 'edd-manual-purchases'); ?>
+								<label for="edd-mp-date"><?php _e('Customer Expiration', 'edd-manual-purchases'); ?></label>
 							</th>
 							<td class="edd-mp-downloads">
-								<label for="edd-mp-expiration">
-									<input type="text" id="edd-mp-expiration" class="edd_datepicker" name="expiration" style="width: auto;"/>
-									<?php _e('Set the customer\'s status to Active and set their expiration date. Leave blank to leave customer as is.', 'edd-manual-purchases'); ?>
-								</label>
+								<input type="text" class="small-text edd_datepicker" id="edd-mp-expiration" name="expiration" style="width: 180px;"/>
+								<div class="description"><?php _e('Set the customer\'s status to Active and set their expiration date. Leave blank to leave customer as is.', 'edd-manual-purchases'); ?></div>
 							</td>
 						</tr>
 						<?php endif; ?>
@@ -342,8 +358,17 @@ class EDD_Manual_Purchases {
 
 			$user_id 	= $user ? $user->ID : 0;
 			$email 		= $user ? $user->user_email : strip_tags( trim( $data['user'] ) );
-			$user_first	= $user ? $user->first_name : '';
-			$user_last	= $user ? $user->last_name : '';
+			if( isset( $data['first'] ) ) {
+				$user_first = sanitize_text_field( $data['first'] );
+			} else {
+				$user_first	= $user ? $user->first_name : '';	
+			}
+
+			if( isset( $data['last'] ) ) {
+				$user_last = sanitize_text_field( $data['last'] );
+			} else {
+				$user_last	= $user ? $user->last_name : '';
+			}
 
 			$user_info = array(
 				'id' 			=> $user_id,
