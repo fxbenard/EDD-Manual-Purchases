@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Manual Purchases
 Plugin URI: http://easydigitaldownloads.com/extension/manual-purchases/
 Description: Provides an admin interface for manually creating purchase orders in Easy Digital Downloads
-Version: 1.7
+Version: 1.7.1
 Author: Pippin Williamson
 Author URI:  http://pippinsplugins.com
 Contributors: mordauk
@@ -42,7 +42,7 @@ class EDD_Manual_Purchases {
 
 		define( 'EDD_MP_STORE_API_URL', 'http://easydigitaldownloads.com' );
 		define( 'EDD_MP_PRODUCT_NAME', 'Manual Purchases' );
-		define( 'EDD_MP_VERSION', '1.7' );
+		define( 'EDD_MP_VERSION', '1.7.1' );
 
 		if( ! class_exists( 'EDD_License' ) ) {
 			include( dirname( __FILE__ ) . '/EDD_License_Handler.php' );
@@ -417,7 +417,7 @@ class EDD_Manual_Purchases {
 			$date = date( 'Y-m-d H:i:s', strtotime( $date ) );
 
 			$purchase_data     = array(
-				'price'        => number_format( (float) $total, 2 ),
+				'price'        => edd_sanitize_amount( $total ),
 				'post_date'    => $date,
 				'purchase_key' => strtolower( md5( uniqid() ) ), // random key
 				'user_email'   => $email,
