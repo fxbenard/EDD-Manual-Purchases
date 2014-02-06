@@ -398,7 +398,7 @@ class EDD_Manual_Purchases {
 					'name'        => get_the_title( $download['id'] ),
 					'id'          => $download['id'],
 					'item_number' => $download,
-					'price'       => $price && count( $data['downloads'] ) < 2 ? $price : $item_price,
+					'price'       => $price ? '0.00' : $item_price,
 					'quantity'    => 1,
 				);
 				$total += $item_price;
