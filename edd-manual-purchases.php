@@ -43,11 +43,6 @@ class EDD_Manual_Purchases {
 		define( 'EDD_MP_STORE_API_URL', 'http://easydigitaldownloads.com' );
 		define( 'EDD_MP_PRODUCT_NAME', 'Manual Purchases' );
 		define( 'EDD_MP_VERSION', '1.7.1' );
-
-		if( ! class_exists( 'EDD_License' ) ) {
-			include( dirname( __FILE__ ) . '/EDD_License_Handler.php' );
-		}
-
 		$this->init();
 
 	}
@@ -90,7 +85,9 @@ class EDD_Manual_Purchases {
 		add_action( 'admin_notices', array( $this, 'payment_created_notice' ), 1 );
 
 		// auto updater
-		$eddc_license = new EDD_License( __FILE__, EDD_MP_PRODUCT_NAME, EDD_MP_VERSION, 'Pippin Williamson' );
+		if( class_exists( 'EDD_License' ) ) {
+			$eddc_license = new EDD_License( __FILE__, EDD_MP_PRODUCT_NAME, EDD_MP_VERSION, 'Pippin Williamson' );
+		}
 
 	}
 
