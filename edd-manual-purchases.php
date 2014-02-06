@@ -260,6 +260,15 @@ class EDD_Manual_Purchases {
 						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
+								<?php _e('Payment status', 'edd-manual-purchases'); ?>
+							</th>
+							<td class="edd-mp-status">
+								<?php echo EDD()->html->select( array( 'name' => 'status', 'options' => edd_get_payment_statuses(), 'selected' => 'publish', 'show_option_all' => false, 'show_option_none' => false ) ); ?>
+								<label for="edd-mp-status" class="description"><?php _e('Select the status of this payment.', 'edd-manual-purchases'); ?></label>
+							</td>
+						</tr>
+						<tr class="form-field">
+							<th scope="row" valign="top">
 								<?php _e('Send Receipt', 'edd-manual-purchases'); ?>
 							</th>
 							<td class="edd-mp-receipt">
@@ -413,6 +422,8 @@ class EDD_Manual_Purchases {
 			$date = ! empty( $data['date'] ) ? strip_tags( trim( $data['date'] ) ) : '-1 day';
 			$date = date( 'Y-m-d H:i:s', strtotime( $date ) );
 
+			$status = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : 'pending';
+
 			$purchase_data     = array(
 				'price'        => edd_sanitize_amount( $total ),
 				'post_date'    => $date,
@@ -422,7 +433,7 @@ class EDD_Manual_Purchases {
 				'currency'     => $edd_options['currency'],
 				'downloads'    => $data['downloads'],
 				'cart_details' => $cart_details,
-				'status'       => 'pending' // start with pending so we can call the update function, which logs all stats
+				'status'       => 'pending'
 			);
 
 			$payment_id = edd_insert_payment( $purchase_data );
@@ -442,7 +453,7 @@ class EDD_Manual_Purchases {
 			}
 
 			// increase stats and log earnings
-			edd_update_payment_status( $payment_id, 'complete' ) ;
+			edd_update_payment_status( $payment_id, $status ) ;
 
 			wp_redirect( admin_url( 'edit.php?post_type=download&page=edd-payment-history&edd-message=payment_created' ) ); exit;
 
