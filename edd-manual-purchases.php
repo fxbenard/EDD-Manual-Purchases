@@ -409,6 +409,7 @@ class EDD_Manual_Purchases {
 					'item_number' => $download,
 					'price'       => $price ? '0.00' : $item_price,
 					'quantity'    => 1,
+					'tax'         => 0,
 				);
 				$total += $item_price;
 
@@ -426,6 +427,7 @@ class EDD_Manual_Purchases {
 
 			$purchase_data     = array(
 				'price'        => edd_sanitize_amount( $total ),
+				'tax'          => 0,
 				'post_date'    => $date,
 				'purchase_key' => strtolower( md5( uniqid() ) ), // random key
 				'user_email'   => $email,
