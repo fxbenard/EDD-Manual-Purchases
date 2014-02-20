@@ -351,7 +351,16 @@ class EDD_Manual_Purchases {
 
 			global $edd_options;
 
+			if( empty( $data['downloads'][0]['id'] ) ) {
+				wp_die( sprintf( __( 'Please select at least one %s to add to the payment.', 'edd-manual-purchases' ), edd_get_label_singular() ) );
+			}
+
 			$user = strip_tags( trim( $data['user'] ) );
+
+			if( empty( $user ) ) {
+				wp_die( __( 'Please enter a username, user ID, or email for the customer this payment belongs to.', 'edd-manual-purchases' ) );
+			}
+
 
 			if( is_numeric( $user ) )
 				$user = get_userdata( $user );
