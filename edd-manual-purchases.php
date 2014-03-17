@@ -429,8 +429,8 @@ class EDD_Manual_Purchases {
 				$total = $price;
 			}
 
-			$date = ! empty( $data['date'] ) ? strip_tags( trim( $data['date'] ) ) : '-1 day';
-			$date = date( 'Y-m-d H:i:s', strtotime( $date ) );
+			$date = ! empty( $data['date'] ) ? strip_tags( trim( $data['date'] ) ) : 'NOW';
+			$date = date( 'Y-m-d H:i:s', strtotime( $date, current_time( 'timestamp' ) ) );
 
 			$status = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : 'pending';
 
