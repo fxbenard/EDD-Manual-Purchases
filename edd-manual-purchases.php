@@ -376,7 +376,7 @@ class EDD_Manual_Purchases {
 			if( isset( $data['first'] ) ) {
 				$user_first = sanitize_text_field( $data['first'] );
 			} else {
-				$user_first	= $user ? $user->first_name : '';	
+				$user_first	= $user ? $user->first_name : '';
 			}
 
 			if( isset( $data['last'] ) ) {
