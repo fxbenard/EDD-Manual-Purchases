@@ -444,7 +444,7 @@ class EDD_Manual_Purchases {
 				'purchase_key' => strtolower( md5( uniqid() ) ), // random key
 				'user_email'   => $email,
 				'user_info'    => $user_info,
-				'currency'     => $edd_options['currency'],
+				'currency'     => edd_get_currency(),
 				'downloads'    => $data['downloads'],
 				'cart_details' => $cart_details,
 				'status'       => 'pending'
