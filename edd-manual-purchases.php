@@ -416,7 +416,8 @@ class EDD_Manual_Purchases {
 					'name'        => get_the_title( $download['id'] ),
 					'id'          => $download['id'],
 					'item_number' => $download,
-					'price'       => $price ? '0.00' : $item_price,
+					'price'       => $price ? $price : $item_price,
+					'subtotal'    => $price ? $price : $item_price,
 					'quantity'    => 1,
 					'tax'         => 0,
 				);
