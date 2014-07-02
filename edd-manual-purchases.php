@@ -393,7 +393,7 @@ class EDD_Manual_Purchases {
 				'discount'		=> 'none'
 			);
 
-			$price = ( isset( $data['amount'] ) && $data['amount'] !== false ) ? edd_sanitize_amount( strip_tags( trim( $data['amount'] ) ) ) : false;
+			$price = ! empty( $data['amount'] ) ? edd_sanitize_amount( strip_tags( trim( $data['amount'] ) ) ) : false;
 
 			$cart_details = array();
 
