@@ -430,7 +430,7 @@ class EDD_Manual_Purchases {
 				$total = $price;
 			}
 
-			$date = ! empty( $data['date'] ) ? date( 'Y-m-d H:i:s', strip_tags( trim( $data['date'] ) ) ) : false;
+			$date = ! empty( $data['date'] ) ? date( 'Y-m-d H:i:s', strtotime( strip_tags( trim( $data['date'] ) ) ) ) : false;
 			if( ! $date ) {
 				$date = date( 'Y-m-d H:i:s', current_time( 'timestamp' ) );
 			}
