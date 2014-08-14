@@ -311,6 +311,19 @@ class EDD_Manual_Purchases {
 							</td>
 						</tr>
 						<?php endif; ?>
+						<?php if( class_exists( 'EDD_Simple_Shipping' ) ) : ?>
+						<tr class="form-field">
+							<th scope="row" valign="top">
+								<label for="edd-mp-shipped"><?php _e('Shipped', 'edd-manual-purchases'); ?></label>
+							</th>
+							<td class="edd-mp-shipped">
+								<label for="edd-mp-shipped">
+									<input type="checkbox" id="edd-mp-shipped" name="shipped" style="width: auto;"/>
+									<?php _e('Mark order as shipped?', 'edd-manual-purchases'); ?>
+								</label>
+							</td>
+						</tr>
+						<?php endif; ?>
 					</tbody>
 				</table>
 				<?php wp_nonce_field( 'edd_create_payment_nonce', 'edd_create_payment_nonce' ); ?>
@@ -464,6 +477,10 @@ class EDD_Manual_Purchases {
 				EDD_Recurring_Customer::set_customer_payment_id( $user_id, $payment_id );
 				EDD_Recurring_Customer::set_customer_status( $user_id, 'active' );
 				EDD_Recurring_Customer::set_customer_expiration( $user_id, $expiration );
+			}
+
+			if( ! empty( $data['shipped'] ) ) {
+				update_post_meta( $payment_id, '_edd_payment_shipping_status', '2' );
 			}
 
 			// increase stats and log earnings
