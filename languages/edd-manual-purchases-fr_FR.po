@@ -1,157 +1,156 @@
-# Copyright (C) 2014 Easy Digital Downloads - Manual Purchases
-# This file is distributed under the same license as the Easy Digital Downloads - Manual Purchases package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Easy Digital Downloads - Manual Purchases 1.8.6\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/edd-manual-"
-"purchases\n"
-"POT-Creation-Date: 2014-11-03 09:07:15+00:00\n"
+"Project-Id-Version: Easy Digital Downloads - Manual Purchases\n"
+"Report-Msgid-Bugs-To: https://easydigitaldownloads.com/support/forum/add-on-"
+"plugins/manual-purchases/nPOT-Creation-Date: 2014-12-02 16:33:27+00:00\n"
+"POT-Creation-Date: 2014-12-02 16:33:27+00:00\n"
+"PO-Revision-Date: 2014-12-02 17:37+0100\n"
+"Last-Translator: fxbenard | FxB <fx@fxbenard.com>\n"
+"Language-Team: fxbenard | FxB <fx@fxbenard.com>\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-11-03 14:12+0100\n"
-"Last-Translator: fxbenard <fxb@wp-translations.org>\n"
-"Language-Team: fxbenard | FxB <fx@fxbenard.com>\n"
-"X-Generator: Poedit 1.5.4\n"
-"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
-"_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;"
-"esc_html_x:1,2c\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7beta3\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-Basepath: ../\n"
-"X-Textdomain-Support: yes\n"
-"Language: fr_FR\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: edd-manual-purchases.php:109 edd-manual-purchases.php:116
-#: edd-manual-purchases.php:332
+#: edd-manual-purchases.php:111 edd-manual-purchases.php:118
+#: edd-manual-purchases.php:334
 msgid "Create Payment"
 msgstr "Créer un paiement"
 
-#: edd-manual-purchases.php:134
+#: edd-manual-purchases.php:136
 msgid "Create New Payment"
-msgstr "Ajouter un nouveau paiement"
+msgstr "Créer un nouveau paiement"
 
-#: edd-manual-purchases.php:208
+#: edd-manual-purchases.php:210
 msgid "Choose %s"
-msgstr "Sélectionner un de vos %s"
+msgstr "Choisir des %s"
 
-#: edd-manual-purchases.php:217
+#: edd-manual-purchases.php:219
 msgid "No %s created yet"
-msgstr "Aucun %s n'a encore été créé."
+msgstr "Aucun %s créé pour l&#39;instant"
 
-#: edd-manual-purchases.php:221
+#: edd-manual-purchases.php:223
 msgid "Add another"
 msgstr "En ajouter un autre"
 
-#: edd-manual-purchases.php:227
+#: edd-manual-purchases.php:229
 msgid "Buyer ID or Email"
-msgstr "Identifiant ou e-mail de l'acheteur "
+msgstr "ID ou E-mail de l'acheteur"
 
-#: edd-manual-purchases.php:231
+#: edd-manual-purchases.php:233
 msgid "Enter the user ID or email of the buyer."
-msgstr "Veuillez saisir l'identifiant ou l'e-mail de l'acheteur."
+msgstr "Entrer l'ID ou l'adresse e-mail de l'acheteur."
 
-#: edd-manual-purchases.php:236
+#: edd-manual-purchases.php:238
 msgid "Buyer First Name"
-msgstr "Le prénom de l'acheteur"
+msgstr "Prénom de l'acheteur"
 
-#: edd-manual-purchases.php:240
+#: edd-manual-purchases.php:242
 msgid "Enter the first name of the buyer (optional)."
-msgstr "Veuillez saisir le prénom de l'acheteur (facultatif)."
+msgstr "Entrer le prénom de l'acheteur (facultatif)."
 
-#: edd-manual-purchases.php:245
+#: edd-manual-purchases.php:247
 msgid "Buyer Last Name"
-msgstr "Le nom de l'acheteur"
+msgstr "Nom de l'acheteur"
 
-#: edd-manual-purchases.php:249
+#: edd-manual-purchases.php:251
 msgid "Enter the last name of the buyer (optional)."
-msgstr "Veuillez saisir le nom de l'acheteur (facultatif)."
+msgstr "Entrer le nom de l'acheteur (facultatif)."
 
-#: edd-manual-purchases.php:254
+#: edd-manual-purchases.php:256
 msgid "Amount"
 msgstr "Montant"
 
-#: edd-manual-purchases.php:258
+#: edd-manual-purchases.php:260
 msgid ""
 "Enter the total purchase amount, or leave blank to auto calculate price "
 "based on the selected items above. Use 0.00 for 0."
 msgstr ""
-"Veuillez saisir le montant total de l'achat, ou laissez vide pour calculer "
-"automatiquement le prix en se basant sur les éléments sélectionnés ci-"
-"dessus. Utiliser 0.00 pour 0."
+"Entrer le montant total de l&#39;achat, ou laisser vide pour calculer le "
+"prix automatiquement sur la base des éléments sélectionnés ci-dessus. "
+"Utiliser 0.00 pour 0."
 
-#: edd-manual-purchases.php:263
+#: edd-manual-purchases.php:265
 msgid "Payment status"
 msgstr "État du paiement"
 
-#: edd-manual-purchases.php:267
+#: edd-manual-purchases.php:269
 msgid "Select the status of this payment."
-msgstr "Sélectionner l'état de ce paiement"
+msgstr "Sélectionner l&#39;état de ce paiement."
 
-#: edd-manual-purchases.php:272
+#: edd-manual-purchases.php:274
 msgid "Send Receipt"
-msgstr "Envoyer le reçu de paiement"
+msgstr "Envoyer le reçu"
 
-#: edd-manual-purchases.php:277
+#: edd-manual-purchases.php:279
 msgid "Send the purchase receipt to the buyer?"
-msgstr "Envoyer le reçu d'achat à l'acheteur ?"
+msgstr "Envoyer la facture d&#39;achat à l&#39;acheteur ?"
 
-#: edd-manual-purchases.php:283
+#: edd-manual-purchases.php:285
 msgid "Date"
 msgstr "Date"
 
-#: edd-manual-purchases.php:287
+#: edd-manual-purchases.php:289
 msgid "Enter the purchase date. Leave blank for today's date."
 msgstr ""
-"Veuillez saisir la date d'achat. Laisser vide pour mettre la date "
-"d'aujourd'hui."
+"Entrer la date d&#39;achat. Laisser ce champ vide pour la date d&#39;"
+"aujourd&#39;hui."
 
-#: edd-manual-purchases.php:293
+#: edd-manual-purchases.php:295
 msgid "Commission"
 msgstr "Commission"
 
-#: edd-manual-purchases.php:298
+#: edd-manual-purchases.php:300
 msgid "Record commissions (if any) for this manual purchase?"
-msgstr "Commissions enregistrées (si existantes) pour cet achat manuel ?"
+msgstr "Enregistrer la commission (si elle existe) pour cet achat manuel ?"
 
-#: edd-manual-purchases.php:306
+#: edd-manual-purchases.php:308
 msgid "Customer Expiration"
 msgstr "Expiration du client"
 
-#: edd-manual-purchases.php:310
+#: edd-manual-purchases.php:312
 msgid ""
 "Set the customer's status to Active and set their expiration date. Leave "
 "blank to leave customer as is."
 msgstr ""
-"Régle l'état du client sur Activé et règle la date d'expiration. Laisser "
-"vide pour laisser le client tel quel."
+"Définir le statut du client sur Actif et régler la date d&#39;expiration. "
+"Laisser vide pour laisser le client tel quel."
 
-#: edd-manual-purchases.php:317
+#: edd-manual-purchases.php:319
 msgid "Shipped"
 msgstr "Envoyé"
 
-#: edd-manual-purchases.php:322
+#: edd-manual-purchases.php:324
 msgid "Mark order as shipped?"
-msgstr "Marquer la commande comme envoyée ?"
+msgstr "Marquer la commande envoyée ?"
 
-#: edd-manual-purchases.php:368
+#: edd-manual-purchases.php:370
 msgid "Please select at least one %s to add to the payment."
-msgstr "Veuillez sélectionner au moins un %s a ajouter au paiement."
+msgstr "Veuillez sélectionner au moins un %s à ajouter au paiement."
 
-#: edd-manual-purchases.php:374
+#: edd-manual-purchases.php:376
 msgid ""
 "Please enter a username, user ID, or email for the customer this payment "
 "belongs to."
-msgstr "Veuillez"
+msgstr ""
+"Veuillez entrer un nom d'utilisateur, une ID, ou un e-mail pour le client "
+"qui a réalisé ce paiement."
 
-#: edd-manual-purchases.php:500
+#: edd-manual-purchases.php:502
 msgid "The payment has been created."
 msgstr "Le paiement a été créé."
 
 #. Plugin Name of the plugin/theme
 msgid "Easy Digital Downloads - Manual Purchases"
-msgstr "Easy Digital Downloads - Achats manuels"
+msgstr "Easy Digital Downloads - Manual Purchases"
 
 #. Plugin URI of the plugin/theme
 msgid "http://easydigitaldownloads.com/extension/manual-purchases/"
@@ -162,8 +161,8 @@ msgid ""
 "Provides an admin interface for manually creating purchase orders in Easy "
 "Digital Downloads"
 msgstr ""
-"Fournit une interface d'administration pour créer manuellement des ordres "
-"d'achats dans Easy Digital Downloads."
+"Fournit une interface d&#39;administration pour créer manuellement des "
+"commandes d&#39;achat dans Easy Digital Downloads"
 
 #. Author of the plugin/theme
 msgid "Pippin Williamson"
