@@ -7,6 +7,8 @@ Version: 1.8.7
 Author: Pippin Williamson
 Author URI:  http://pippinsplugins.com
 Contributors: mordauk
+Text Domain: edd-manual-purchases
+Domain Path: languages
 */
 
 class EDD_Manual_Purchases {
