@@ -147,7 +147,7 @@ class EDD_Manual_Purchases {
 						$('select.edd-mp-price-select', row).remove();
 
 						if( ! $('.edd-mp-remove', row).length )
-							$('.edd-mp-downloads', row).append('<a href="#" class="edd-mp-remove">Remove</a>');
+							$('.edd-mp-downloads', row).append('<a href="#" class="edd-mp-remove"><?php _e('Remove', 'edd-manual-purchases'); ?></a>');
 
 						row.insertAfter( '#edd-mp-table-body tr.edd-mp-download-wrap:last' );
 						return false;
