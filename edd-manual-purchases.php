@@ -260,6 +260,17 @@ class EDD_Manual_Purchases {
 								<div class="description"><?php _e('Enter the total purchase amount, or leave blank to auto calculate price based on the selected items above. Use 0.00 for 0.', 'edd-manual-purchases'); ?></div>
 							</td>
 						</tr>
+						<?php if( edd_use_taxes() ) : ?> 
+						<tr class="form-field">
+							<th scope="row" valign="top">
+								<label for="edd-mp-tax"><?php _e('Tax', 'edd-manual-purchases'); ?></label>
+							</th>
+							<td class="edd-mp-downloads">
+								<input type="text" class="small-text" id="edd-mp-tax" name="tax" value="0" style="width: 180px;"/>
+								<div class="description"><?php _e('Enter the total tax charged on the purchase.', 'edd-manual-purchases'); ?></div>
+							</td>
+						</tr>
+						<?php endif; ?>
 						<tr class="form-field">
 							<th scope="row" valign="top">
 								<?php _e('Payment status', 'edd-manual-purchases'); ?>
@@ -455,10 +466,11 @@ class EDD_Manual_Purchases {
 			}
 
 			$status = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : 'pending';
+			$tax    = ! empty( $_POST['tax'] ) ? edd_sanitize_amount( sanitize_text_field( $_POST['tax'] ) ) : 0;
 
 			$purchase_data     = array(
 				'price'        => edd_sanitize_amount( $total ),
-				'tax'          => 0,
+				'tax'          => $tax,
 				'post_date'    => $date,
 				'purchase_key' => strtolower( md5( uniqid() ) ), // random key
 				'user_email'   => $email,
@@ -470,6 +482,8 @@ class EDD_Manual_Purchases {
 			);
 
 			$payment_id = edd_insert_payment( $purchase_data );
+
+			edd_update_payment_meta( $payment_id, '_edd_payment_tax', $tax );
 
 			if( empty( $data['receipt'] ) || $data['receipt'] != '1' ) {
 				remove_action( 'edd_complete_purchase', 'edd_trigger_purchase_receipt', 999 );
