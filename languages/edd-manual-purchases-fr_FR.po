@@ -3,15 +3,15 @@ msgstr ""
 "Project-Id-Version: Easy Digital Downloads - Manual Purchases\n"
 "Report-Msgid-Bugs-To: https://easydigitaldownloads.com/support/forum/add-on-"
 "plugins/manual-purchases/nPOT-Creation-Date: 2014-12-02 16:33:27+00:00\n"
-"POT-Creation-Date: 2014-12-02 16:33:27+00:00\n"
-"PO-Revision-Date: 2014-12-02 17:37+0100\n"
-"Last-Translator: fxbenard | FxB <fx@fxbenard.com>\n"
+"POT-Creation-Date: 2015-02-19 09:09-0600\n"
+"PO-Revision-Date: 2015-02-19 09:09-0600\n"
+"Last-Translator: Chris Christoff <chriscct7@gmail.com>\n"
 "Language-Team: fxbenard | FxB <fx@fxbenard.com>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7beta3\n"
+"X-Generator: Poedit 1.6.3\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: edd-manual-purchases.php:111 edd-manual-purchases.php:118
-#: edd-manual-purchases.php:334
+#: edd-manual-purchases.php:345
 msgid "Create Payment"
 msgstr "Créer un paiement"
 
@@ -30,10 +30,12 @@ msgid "Create New Payment"
 msgstr "Créer un nouveau paiement"
 
 #: edd-manual-purchases.php:210
+#, php-format
 msgid "Choose %s"
 msgstr "Choisir des %s"
 
 #: edd-manual-purchases.php:219
+#, php-format
 msgid "No %s created yet"
 msgstr "Aucun %s créé pour l&#39;instant"
 
@@ -78,45 +80,53 @@ msgstr ""
 "prix automatiquement sur la base des éléments sélectionnés ci-dessus. "
 "Utiliser 0.00 pour 0."
 
-#: edd-manual-purchases.php:265
+#: edd-manual-purchases.php:266
+msgid "Tax"
+msgstr ""
+
+#: edd-manual-purchases.php:270
+msgid "Enter the total tax charged on the purchase."
+msgstr ""
+
+#: edd-manual-purchases.php:276
 msgid "Payment status"
 msgstr "État du paiement"
 
-#: edd-manual-purchases.php:269
+#: edd-manual-purchases.php:280
 msgid "Select the status of this payment."
 msgstr "Sélectionner l&#39;état de ce paiement."
 
-#: edd-manual-purchases.php:274
+#: edd-manual-purchases.php:285
 msgid "Send Receipt"
 msgstr "Envoyer le reçu"
 
-#: edd-manual-purchases.php:279
+#: edd-manual-purchases.php:290
 msgid "Send the purchase receipt to the buyer?"
 msgstr "Envoyer la facture d&#39;achat à l&#39;acheteur ?"
 
-#: edd-manual-purchases.php:285
+#: edd-manual-purchases.php:296
 msgid "Date"
 msgstr "Date"
 
-#: edd-manual-purchases.php:289
+#: edd-manual-purchases.php:300
 msgid "Enter the purchase date. Leave blank for today's date."
 msgstr ""
 "Entrer la date d&#39;achat. Laisser ce champ vide pour la date d&#39;"
 "aujourd&#39;hui."
 
-#: edd-manual-purchases.php:295
+#: edd-manual-purchases.php:306
 msgid "Commission"
 msgstr "Commission"
 
-#: edd-manual-purchases.php:300
+#: edd-manual-purchases.php:311
 msgid "Record commissions (if any) for this manual purchase?"
 msgstr "Enregistrer la commission (si elle existe) pour cet achat manuel ?"
 
-#: edd-manual-purchases.php:308
+#: edd-manual-purchases.php:319
 msgid "Customer Expiration"
 msgstr "Expiration du client"
 
-#: edd-manual-purchases.php:312
+#: edd-manual-purchases.php:323
 msgid ""
 "Set the customer's status to Active and set their expiration date. Leave "
 "blank to leave customer as is."
@@ -124,19 +134,20 @@ msgstr ""
 "Définir le statut du client sur Actif et régler la date d&#39;expiration. "
 "Laisser vide pour laisser le client tel quel."
 
-#: edd-manual-purchases.php:319
+#: edd-manual-purchases.php:330
 msgid "Shipped"
 msgstr "Envoyé"
 
-#: edd-manual-purchases.php:324
+#: edd-manual-purchases.php:335
 msgid "Mark order as shipped?"
 msgstr "Marquer la commande envoyée ?"
 
-#: edd-manual-purchases.php:370
+#: edd-manual-purchases.php:381
+#, php-format
 msgid "Please select at least one %s to add to the payment."
 msgstr "Veuillez sélectionner au moins un %s à ajouter au paiement."
 
-#: edd-manual-purchases.php:376
+#: edd-manual-purchases.php:387
 msgid ""
 "Please enter a username, user ID, or email for the customer this payment "
 "belongs to."
@@ -144,30 +155,25 @@ msgstr ""
 "Veuillez entrer un nom d'utilisateur, une ID, ou un e-mail pour le client "
 "qui a réalisé ce paiement."
 
-#: edd-manual-purchases.php:502
+#: edd-manual-purchases.php:516
 msgid "The payment has been created."
 msgstr "Le paiement a été créé."
 
-#. Plugin Name of the plugin/theme
-msgid "Easy Digital Downloads - Manual Purchases"
-msgstr "Easy Digital Downloads - Manual Purchases"
+#~ msgid "Easy Digital Downloads - Manual Purchases"
+#~ msgstr "Easy Digital Downloads - Manual Purchases"
 
-#. Plugin URI of the plugin/theme
-msgid "http://easydigitaldownloads.com/extension/manual-purchases/"
-msgstr "http://easydigitaldownloads.com/extension/manual-purchases/"
+#~ msgid "http://easydigitaldownloads.com/extension/manual-purchases/"
+#~ msgstr "http://easydigitaldownloads.com/extension/manual-purchases/"
 
-#. Description of the plugin/theme
-msgid ""
-"Provides an admin interface for manually creating purchase orders in Easy "
-"Digital Downloads"
-msgstr ""
-"Fournit une interface d&#39;administration pour créer manuellement des "
-"commandes d&#39;achat dans Easy Digital Downloads"
+#~ msgid ""
+#~ "Provides an admin interface for manually creating purchase orders in Easy "
+#~ "Digital Downloads"
+#~ msgstr ""
+#~ "Fournit une interface d&#39;administration pour créer manuellement des "
+#~ "commandes d&#39;achat dans Easy Digital Downloads"
 
-#. Author of the plugin/theme
-msgid "Pippin Williamson"
-msgstr "Pippin Williamson"
+#~ msgid "Pippin Williamson"
+#~ msgstr "Pippin Williamson"
 
-#. Author URI of the plugin/theme
-msgid "http://pippinsplugins.com"
-msgstr "http://pippinsplugins.com"
+#~ msgid "http://pippinsplugins.com"
+#~ msgstr "http://pippinsplugins.com"
