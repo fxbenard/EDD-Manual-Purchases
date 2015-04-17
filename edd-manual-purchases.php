@@ -520,4 +520,7 @@ class EDD_Manual_Purchases {
 
 }
 
-$GLOBALS['edd_manual_purchases'] = new EDD_Manual_Purchases();
+function edd_load_manual_purchases() {
+	$GLOBALS['edd_manual_purchases'] = new EDD_Manual_Purchases();
+}
+add_action( 'plugins_loaded', 'edd_load_manual_purchases' );
