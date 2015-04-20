@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Manual Purchases
 Plugin URI: http://easydigitaldownloads.com/extension/manual-purchases/
 Description: Provides an admin interface for manually creating purchase orders in Easy Digital Downloads
-Version: 1.9
+Version: 1.9.1
 Author: Pippin Williamson
 Author URI:  http://pippinsplugins.com
 Contributors: mordauk
@@ -44,7 +44,7 @@ class EDD_Manual_Purchases {
 
 		define( 'EDD_MP_STORE_API_URL', 'http://easydigitaldownloads.com' );
 		define( 'EDD_MP_PRODUCT_NAME', 'Manual Purchases' );
-		define( 'EDD_MP_VERSION', '1.9' );
+		define( 'EDD_MP_VERSION', '1.9.1' );
 		$this->init();
 
 	}
@@ -108,7 +108,7 @@ class EDD_Manual_Purchases {
 
 		?>
 		<p id="edd_create_payment_go">
-			<a href="<?php echo add_query_arg( 'page', 'edd-manual-purchase', admin_url( 'options.php' ) ); ?>" class="button-secondary"><?php _e('Create Payment', 'edd-manual-purchases'); ?></a>
+			<a href="<?php echo esc_url( add_query_arg( 'page', 'edd-manual-purchase', admin_url( 'options.php' ) ) ); ?>" class="button-secondary"><?php _e('Create Payment', 'edd-manual-purchases'); ?></a>
 		</p>
 		<?php
 	}
@@ -260,7 +260,7 @@ class EDD_Manual_Purchases {
 								<div class="description"><?php _e('Enter the total purchase amount, or leave blank to auto calculate price based on the selected items above. Use 0.00 for 0.', 'edd-manual-purchases'); ?></div>
 							</td>
 						</tr>
-						<?php if( edd_use_taxes() ) : ?> 
+						<?php if( edd_use_taxes() ) : ?>
 						<tr class="form-field">
 							<th scope="row" valign="top">
 								<label for="edd-mp-tax"><?php _e('Tax', 'edd-manual-purchases'); ?></label>
