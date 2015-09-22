@@ -527,18 +527,18 @@ class EDD_Manual_Purchases {
 				update_user_meta( $user_id, '_edd_wallet_value', $wallet_value );
 
 				// Record the payment
-            	$wallet_args = array(
-                	'user_id'       => $user_id,
-	                'payment_id'    => $payment_id,
-	                'type'          => 'withdrawal',
-    	            'amount'        => (float) $total
-	            );
+				$wallet_args = array(
+					'user_id'       => $user_id,
+					'payment_id'    => $payment_id,
+					'type'          => 'withdrawal',
+					'amount'        => (float) $total
+				);
 
-    	        edd_wallet()->wallet->add( $wallet_args );
+				edd_wallet()->wallet->add( $wallet_args );
 
-    	        // Don't increase customer value if paying from Wallet
-    	        $customer = new EDD_Customer( $user_id );
-    	        $customer->decrease_value( $total );
+				// Don't increase customer value if paying from Wallet
+				$customer = new EDD_Customer( $user_id );
+				$customer->decrease_value( $total );
 			}
 
 			if( ! empty( $data['shipped'] ) ) {
