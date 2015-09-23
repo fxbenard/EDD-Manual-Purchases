@@ -537,7 +537,7 @@ class EDD_Manual_Purchases {
 				edd_wallet()->wallet->add( $wallet_args );
 
 				// Don't increase customer value if paying from Wallet
-				$customer = new EDD_Customer( $user_id );
+				$customer = new EDD_Customer( $user_id, true );
 				$customer->decrease_value( $total );
 			}
 
