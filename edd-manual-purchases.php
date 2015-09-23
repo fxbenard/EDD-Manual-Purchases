@@ -337,6 +337,19 @@ class EDD_Manual_Purchases {
 							</td>
 						</tr>
 						<?php endif; ?>
+						<?php if( class_exists( 'EDD_Wallet' ) ) : ?>
+						<tr class="form-field">
+							<th scope="row" valign="top">
+								<label for="edd-mp-wallet"><?php _e( 'Pay From Wallet', 'edd-manual-purchases' ); ?></label>
+							</th>
+							<td class="edd-mp-wallet">
+								<label for="edd-mp-wallet">
+									<input type="checkbox" id="edd-mp-wallet" name="wallet" style="width: auto;"/>
+									<?php _e( 'Use funds from the customers\' wallet to pay for this payment.', 'edd-manual-purchases' ); ?>
+								</label>
+							</td>
+						</tr>
+						<?php endif; ?>
 					</tbody>
 				</table>
 				<?php wp_nonce_field( 'edd_create_payment_nonce', 'edd_create_payment_nonce' ); ?>
@@ -456,6 +469,15 @@ class EDD_Manual_Purchases {
 				$total = $price;
 			}
 
+			// if we are using Wallet, ensure the customer can afford this purchase
+			if( ! empty( $data['wallet'] ) && class_exists( 'EDD_Wallet' ) && $user_id > 0 ) {
+				$wallet_value = get_user_meta( $user_id, '_edd_wallet_value', true );
+
+				if( $wallet_value < $total ) {
+					wp_die( __( 'The customer does not have sufficient funds in their wallet to pay for this purchase.', 'edd-manual-purchases' ) );
+				}
+			}
+
 			$date = ! empty( $data['date'] ) ? date( 'Y-m-d H:i:s', strtotime( strip_tags( trim( $data['date'] ) ) ) ) : false;
 			if( ! $date ) {
 				$date = date( 'Y-m-d H:i:s', current_time( 'timestamp' ) );
@@ -497,6 +519,26 @@ class EDD_Manual_Purchases {
 				EDD_Recurring_Customer::set_customer_payment_id( $user_id, $payment_id );
 				EDD_Recurring_Customer::set_customer_status( $user_id, 'active' );
 				EDD_Recurring_Customer::set_customer_expiration( $user_id, $expiration );
+			}
+
+			if( ! empty( $data['wallet'] ) && class_exists( 'EDD_Wallet' ) && $user_id > 0 ) {
+				// Update the user wallet
+				$wallet_value = (float) $wallet_value - (float) $total;
+				update_user_meta( $user_id, '_edd_wallet_value', $wallet_value );
+
+				// Record the payment
+				$wallet_args = array(
+					'user_id'       => $user_id,
+					'payment_id'    => $payment_id,
+					'type'          => 'withdrawal',
+					'amount'        => (float) $total
+				);
+
+				edd_wallet()->wallet->add( $wallet_args );
+
+				// Don't increase customer value if paying from Wallet
+				$customer = new EDD_Customer( $user_id, true );
+				$customer->decrease_value( $total );
 			}
 
 			if( ! empty( $data['shipped'] ) ) {
