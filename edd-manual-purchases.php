@@ -471,7 +471,7 @@ class EDD_Manual_Purchases {
 
 			// if we are using Wallet, ensure the customer can afford this purchase
 			if( ! empty( $data['wallet'] ) && class_exists( 'EDD_Wallet' ) && $user_id > 0 ) {
-				$wallet_value = get_user_meta( $user_id, '_edd_wallet_value', true );
+				$wallet_value = edd_wallet()->wallet->balance( $user_id );
 
 				if( $wallet_value < $total ) {
 					wp_die( __( 'The customer does not have sufficient funds in their wallet to pay for this purchase.', 'edd-manual-purchases' ) );
@@ -523,22 +523,7 @@ class EDD_Manual_Purchases {
 
 			if( ! empty( $data['wallet'] ) && class_exists( 'EDD_Wallet' ) && $user_id > 0 ) {
 				// Update the user wallet
-				$wallet_value = (float) $wallet_value - (float) $total;
-				update_user_meta( $user_id, '_edd_wallet_value', $wallet_value );
-
-				// Record the payment
-				$wallet_args = array(
-					'user_id'       => $user_id,
-					'payment_id'    => $payment_id,
-					'type'          => 'withdrawal',
-					'amount'        => (float) $total
-				);
-
-				edd_wallet()->wallet->add( $wallet_args );
-
-				// Don't increase customer value if paying from Wallet
-				$customer = new EDD_Customer( $user_id, true );
-				$customer->decrease_value( $total );
+				edd_wallet()->wallet->withdraw( $user_id, $total, 'withdrawal', $payment_id );
 			}
 
 			if( ! empty( $data['shipped'] ) ) {
