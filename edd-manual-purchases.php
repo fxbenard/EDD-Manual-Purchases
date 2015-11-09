@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Manual Purchases
 Plugin URI: http://easydigitaldownloads.com/extension/manual-purchases/
 Description: Provides an admin interface for manually creating purchase orders in Easy Digital Downloads
-Version: 1.9
+Version: 1.9.3
 Author: Pippin Williamson
 Author URI:  http://pippinsplugins.com
 Contributors: mordauk
@@ -44,7 +44,7 @@ class EDD_Manual_Purchases {
 
 		define( 'EDD_MP_STORE_API_URL', 'http://easydigitaldownloads.com' );
 		define( 'EDD_MP_PRODUCT_NAME', 'Manual Purchases' );
-		define( 'EDD_MP_VERSION', '1.9' );
+		define( 'EDD_MP_VERSION', '1.9.3' );
 		$this->init();
 
 	}
@@ -108,7 +108,7 @@ class EDD_Manual_Purchases {
 
 		?>
 		<p id="edd_create_payment_go">
-			<a href="<?php echo add_query_arg( 'page', 'edd-manual-purchase', admin_url( 'options.php' ) ); ?>" class="button-secondary"><?php _e('Create Payment', 'edd-manual-purchases'); ?></a>
+			<a href="<?php echo esc_url( add_query_arg( 'page', 'edd-manual-purchase', admin_url( 'options.php' ) ) ); ?>" class="button-secondary"><?php _e('Create Payment', 'edd-manual-purchases'); ?></a>
 		</p>
 		<?php
 	}
@@ -260,7 +260,7 @@ class EDD_Manual_Purchases {
 								<div class="description"><?php _e('Enter the total purchase amount, or leave blank to auto calculate price based on the selected items above. Use 0.00 for 0.', 'edd-manual-purchases'); ?></div>
 							</td>
 						</tr>
-						<?php if( edd_use_taxes() ) : ?> 
+						<?php if( edd_use_taxes() ) : ?>
 						<tr class="form-field">
 							<th scope="row" valign="top">
 								<label for="edd-mp-tax"><?php _e('Tax', 'edd-manual-purchases'); ?></label>
@@ -333,6 +333,19 @@ class EDD_Manual_Purchases {
 								<label for="edd-mp-shipped">
 									<input type="checkbox" id="edd-mp-shipped" name="shipped" style="width: auto;"/>
 									<?php _e('Mark order as shipped?', 'edd-manual-purchases'); ?>
+								</label>
+							</td>
+						</tr>
+						<?php endif; ?>
+						<?php if( class_exists( 'EDD_Wallet' ) ) : ?>
+						<tr class="form-field">
+							<th scope="row" valign="top">
+								<label for="edd-mp-wallet"><?php _e( 'Pay From Wallet', 'edd-manual-purchases' ); ?></label>
+							</th>
+							<td class="edd-mp-wallet">
+								<label for="edd-mp-wallet">
+									<input type="checkbox" id="edd-mp-wallet" name="wallet" style="width: auto;"/>
+									<?php _e( 'Use funds from the customers\' wallet to pay for this payment.', 'edd-manual-purchases' ); ?>
 								</label>
 							</td>
 						</tr>
@@ -456,6 +469,15 @@ class EDD_Manual_Purchases {
 				$total = $price;
 			}
 
+			// if we are using Wallet, ensure the customer can afford this purchase
+			if( ! empty( $data['wallet'] ) && class_exists( 'EDD_Wallet' ) && $user_id > 0 ) {
+				$wallet_value = edd_wallet()->wallet->balance( $user_id );
+
+				if( $wallet_value < $total ) {
+					wp_die( __( 'The customer does not have sufficient funds in their wallet to pay for this purchase.', 'edd-manual-purchases' ) );
+				}
+			}
+
 			$date = ! empty( $data['date'] ) ? date( 'Y-m-d H:i:s', strtotime( strip_tags( trim( $data['date'] ) ) ) ) : false;
 			if( ! $date ) {
 				$date = date( 'Y-m-d H:i:s', current_time( 'timestamp' ) );
@@ -499,6 +521,11 @@ class EDD_Manual_Purchases {
 				EDD_Recurring_Customer::set_customer_expiration( $user_id, $expiration );
 			}
 
+			if( ! empty( $data['wallet'] ) && class_exists( 'EDD_Wallet' ) && $user_id > 0 ) {
+				// Update the user wallet
+				edd_wallet()->wallet->withdraw( $user_id, $total, 'withdrawal', $payment_id );
+			}
+
 			if( ! empty( $data['shipped'] ) ) {
 				update_post_meta( $payment_id, '_edd_payment_shipping_status', '2' );
 			}
@@ -520,4 +547,7 @@ class EDD_Manual_Purchases {
 
 }
 
-$GLOBALS['edd_manual_purchases'] = new EDD_Manual_Purchases();
+function edd_load_manual_purchases() {
+	$GLOBALS['edd_manual_purchases'] = new EDD_Manual_Purchases();
+}
+add_action( 'plugins_loaded', 'edd_load_manual_purchases' );

@@ -1,0 +1,17 @@
+{
+    "name": "easydigitaldownloads/EDD-Manual-Purchases",
+    "type": "wordpress-plugin",
+    "description": "Provides an admin interface for manually creating purchase orders in Easy Digital Downloads",
+    "keywords": [ "edd", "manual", "purchases", "plugin"],
+    "homepage": "http://easydigitaldownloads.com.com",
+    "authors": [
+        {
+            "name": "Pippin Williamson",
+            "email": "pippin@pippinsplugins.com",
+            "homepage": "http://pippinsplugins.com"
+        }
+    ],
+    "require": {
+        "composer/installers": "~1.0.6"
+    }
+}
