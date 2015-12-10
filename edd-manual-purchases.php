@@ -293,6 +293,20 @@ class EDD_Manual_Purchases {
 						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
+								<label for="edd-mp-payment-method"><?php _e('Payment Method', 'edd-manual-purchases'); ?></label>
+							</th>
+							<td class="edd-mp-gateways">
+								<select name="gateway" id="edd-mp-payment-method">
+									<option value="manual_purchases"><?php esc_html_e( 'Manual Payment', 'edd-manual-purchases' ); ?></option>
+									<?php foreach( edd_get_payment_gateways() as $gateway_id => $gateway ) : ?>
+										<option value="<?php echo esc_attr( $gateway_id ); ?>"><?php echo esc_html( $gateway['admin_label'] ); ?></option>
+									<?php endforeach; ?>
+								</select>
+								<div class="description"><?php _e('Select the payment method used.', 'edd-manual-purchases'); ?></div>
+							</td>
+						</tr>
+						<tr class="form-field">
+							<th scope="row" valign="top">
 								<label for="edd-mp-transaction-id"><?php _e('Transaction ID', 'edd-manual-purchases'); ?></label>
 							</th>
 							<td class="edd-mp-downloads">
@@ -495,6 +509,7 @@ class EDD_Manual_Purchases {
 			$payment->status   = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : 'pending';
 			$payment->tax      = ! empty( $_POST['tax'] ) ? edd_sanitize_amount( sanitize_text_field( $_POST['tax'] ) ) : 0;
 			$payment->currency = edd_get_currency();
+			$payment->gateway  = sanitize_text_field( $_POST['gateway'] );
 
 			if( ! empty( $_POST['transaction_id'] ) ) {
 				$payment->transaction_id = sanitize_text_field( $_POST['transaction_id'] );
