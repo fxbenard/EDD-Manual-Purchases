@@ -450,11 +450,15 @@ class EDD_Manual_Purchases {
 					$item_price = edd_get_download_price( $download['id'] );
 				}
 
-				$payment->add_download( $download['id'], array(
+				$args = array(
 					'quantity'    => 1,
 					'price_id'    => isset( $download['options'] ) ? $download['options']['price_id'] : null,
 					'amount'      => $item_price
-				) );
+				);
+
+				$options = isset( $download['options'] ) ? $download['options'] : array();
+
+				$payment->add_download( $download['id'], $args, $options );
 
 				$total += $item_price;
 
@@ -507,9 +511,6 @@ class EDD_Manual_Purchases {
 			if( ! empty( $data['shipped'] ) ) {
 				update_post_meta( $payment->ID, '_edd_payment_shipping_status', '2' );
 			}
-
-			// increase stats and log earnings
-			edd_update_payment_status( $payment->ID, $status ) ;
 
 			wp_redirect( admin_url( 'edit.php?post_type=download&page=edd-payment-history&edd-message=payment_created' ) ); exit;
 
