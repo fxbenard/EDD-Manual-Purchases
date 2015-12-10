@@ -128,6 +128,8 @@ class EDD_Manual_Purchases {
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 		$ui_style = ( 'classic' == get_user_option( 'admin_color' ) ) ? 'classic' : 'fresh';
 		wp_enqueue_style( 'jquery-ui-css', EDD_PLUGIN_URL . 'assets/css/jquery-ui-' . $ui_style . $suffix . '.css' );
+	
+		add_filter( 'edd_is_admin_page', '__return_true' );
 	}
 
 	public static function payment_creation_form() {
@@ -136,49 +138,42 @@ class EDD_Manual_Purchases {
 			<h2><?php _e('Create New Payment', 'edd-manual-purchases'); ?></h2>
 			<script type="text/javascript">
 				jQuery(document).ready(function($) {
-					// clone a download row
-					$('#edd_mp_create_payment').on('click', '.edd-mp-add-download', function() {
-						var row = $(this).closest('tr').clone();
-
-						var count = $('tr.edd-mp-download-wrap').size();
-
-						$('select.edd-mp-download-select', row).prop('name', 'downloads[' + count + '][id]');
-
-						$('select.edd-mp-price-select', row).remove();
-
-						if( ! $('.edd-mp-remove', row).length )
-							$('.edd-mp-downloads', row).append('<a href="#" class="edd-mp-remove">Remove</a>');
-
-						row.insertAfter( '#edd-mp-table-body tr.edd-mp-download-wrap:last' );
-						return false;
-					});
-					// remove a download row
-					$('#edd_mp_create_payment').on('click', '.edd-mp-remove', function() {
-						$(this).closest('tr').remove();
-						return false;
-					});
 					// check for variable prices
-					$('#edd_mp_create_payment').on('change', '.edd-mp-download-select', function() {
+					$('#edd_mp_create_payment').on('change', '.mp-downloads', function() {
 						var $this = $(this);
 						var selected_download = $('option:selected', this).val();
+						$this.parent().parent().find('.download-price-option-wrap').html('');
 						if( parseInt( selected_download ) != 0) {
 							var edd_mp_nonce = $('#edd_create_payment_nonce').val();
-							var data = {
-								action: 'edd_mp_check_for_variations',
-								download_id: selected_download,
-								key: $('tr.edd-mp-download-wrap').size() - 1,
-								nonce: edd_mp_nonce
-							}
-							$this.parent().find('img').show();
-							$.post(ajaxurl, data, function(response) {
-								$this.next('select').remove();
-								$this.after( response );
-								$this.parent().find('img').hide();
+							var key = $this.parent().parent().data('key');
+							$.ajax({
+								type: "POST",
+								url: ajaxurl,
+								data: {
+									action: 'edd_mp_check_for_variations',
+									download_id: selected_download,
+									key: key,
+									nonce: edd_mp_nonce
+								},
+								dataType: "json",
+								success: function(response) {
+									console.log(response);
+									$this.parent().parent().find('.download-price-option-wrap').html( response.html );
+									$this.parent().parent().find('input[name="downloads['+ key +'][amount]"]').val( response.amount );
+								}
+							}).fail(function (data) {
+								if ( window.console && window.console.log ) {
+									console.log( data );
+								}
 							});
 						} else {
-							$this.next('select').remove();
-							$this.parent().find('img').hide();
+							$this.parent().parent().find('.download-price-option-wrap').html('N/A');
 						}
+					});
+					$('.edd_add_repeatable').click(function() {
+						setTimeout( function() {
+							$('.edd_repeatable_row:last').find('.download-price-option-wrap').html('');
+						}, 300 );
 					});
 					if ($('.form-table .edd_datepicker').length > 0) {
 						var dateFormat = 'mm/dd/yy';
@@ -193,35 +188,63 @@ class EDD_Manual_Purchases {
 					<tbody id="edd-mp-table-body">
 						<tr class="form-field edd-mp-download-wrap">
 							<th scope="row" valign="top">
-								<label><?php echo edd_get_label_singular(); ?></label>
+								<label><?php echo edd_get_label_plural(); ?></label>
 							</th>
 							<td class="edd-mp-downloads">
-								<select name="downloads[0][id]" class="edd-mp-download-select">
-									<?php
-									$args = array(
-										'post_type' => 'download',
-										'nopaging'  => true,
-										'orderby'   => 'title',
-										'order'     => 'ASC',
-										'post_status' => 'any'
-									);
-									$downloads = get_posts( apply_filters( 'edd_mp_downloads_query', $args ) );
-									if( $downloads ) {
-										echo '<option value="0">' . sprintf( __('Choose %s', 'edd-manual-purchases'), esc_html( edd_get_label_plural() ) ) . '</option>';
-										foreach( $downloads as $download ) {
-											if( $download->post_status != 'publish' )
-												$prefix = strtoupper( $download->post_status ) . ' - ';
-											else
-												$prefix = '';
-											echo '<option value="' . $download->ID . '">' . $prefix . esc_html( get_the_title( $download->ID ) ) . '</option>';
-										}
-									} else {
-										echo '<option value="0">' . sprintf( __('No %s created yet', 'edd-manual-purchases'), edd_get_label_plural() ) . '</option>';
-									}
-									?>
-								</select>
-								<a href="#" class="edd-mp-add-download"><?php _e('Add another', 'edd-manual-purchases' ); ?></a>
-								<img src="<?php echo admin_url('/images/wpspin_light.gif'); ?>" class="waiting edd_mp_loading" style="display:none;"/>
+								<div id="edd_file_fields" class="edd_meta_table_wrap">
+									<table class="widefat edd_repeatable_table" width="100%" cellpadding="0" cellspacing="0">
+										<thead>
+											<tr>
+												<th style="padding: 10px;"><?php echo edd_get_label_plural(); ?></th>
+												<th style="padding: 10px;"><?php _e( 'Price Option', 'edd-manual-purchases' ); ?></th>
+												<th style="padding: 10px;"><?php _e( 'Amount', 'edd-manual-purchases' ); ?></th>
+												<?php if( edd_use_taxes() ) : ?>
+													<th style="padding: 10px;"><?php _e( 'Tax', 'edd-manual-purchases' ); ?></th>
+												<?php endif; ?><?php if( edd_item_quantities_enabled() ) : ?>
+													<th style="padding: 10px;"><?php _e( 'Quantity', 'edd-manual-purchases' ); ?></th>
+												<?php endif; ?>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="edd_repeatable_product_wrapper edd_repeatable_row" data-key="1">
+												<td>
+													<?php
+													echo EDD()->html->product_dropdown( array(
+														'name'     => 'downloads[1][id]',
+														'id'       => 'downloads',
+														'class'    => 'mp-downloads',
+														'multiple' => false,
+														'chosen'   => true,
+														'bundles'  => false
+													) );
+													?>
+												</td>
+												<td class="download-price-option-wrap"><?php _e( 'N/A', 'edd-manual-purchases' ); ?></td>
+												<td>
+													<input type="text" name="downloads[1][amount]" value="" placeholder="<?php esc_attr_e( 'Enter amount', 'edd-manual-purchases' ); ?>"/>
+												</td>
+												<?php if( edd_use_taxes() ) : ?>
+													<td>
+														<input type="text" name="downloads[1][tax]" value="" placeholder="<?php esc_attr_e( 'Enter taxed amount', 'edd-manual-purchases' ); ?>"/>
+													</td>
+												<?php endif; ?>
+												<?php if( edd_item_quantities_enabled() ) : ?>
+													<td>
+														<input type="text" name="downloads[1][quantity]" value="1" placeholder="<?php esc_attr_e( 'Enter quantity', 'edd-manual-purchases' ); ?>"/>
+													</td>
+												<?php endif; ?>
+												<td>
+													<a href="#" class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;">&times;</a>
+												</td>
+											</tr>
+											<tr>
+												<td class="submit" colspan="3" style="float: none; clear:both; background: #fff;">
+													<a class="button-secondary edd_add_repeatable" style="margin: 6px 0 10px;"><?php _e( 'Add New', 'edd-manual-purchases' ); ?></a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 							</td>
 						</tr>
 						<tr class="form-field">
@@ -260,17 +283,6 @@ class EDD_Manual_Purchases {
 								<div class="description"><?php _e('Enter the total purchase amount, or leave blank to auto calculate price based on the selected items above. Use 0.00 for 0.', 'edd-manual-purchases'); ?></div>
 							</td>
 						</tr>
-						<?php if( edd_use_taxes() ) : ?>
-						<tr class="form-field">
-							<th scope="row" valign="top">
-								<label for="edd-mp-tax"><?php _e('Tax', 'edd-manual-purchases'); ?></label>
-							</th>
-							<td class="edd-mp-downloads">
-								<input type="text" class="small-text" id="edd-mp-tax" name="tax" value="0" style="width: 180px;"/>
-								<div class="description"><?php _e('Enter the total tax charged on the purchase.', 'edd-manual-purchases'); ?></div>
-							</td>
-						</tr>
-						<?php endif; ?>
 						<tr class="form-field">
 							<th scope="row" valign="top">
 								<?php _e('Payment status', 'edd-manual-purchases'); ?>
@@ -390,20 +402,25 @@ class EDD_Manual_Purchases {
 
 			$download_id = absint( $_POST['download_id'] );
 
+			$response = array();
+
 			if( edd_has_variable_prices( $download_id ) ) {
 
 				$prices = get_post_meta( $download_id, 'edd_variable_prices', true );
-				$response = '';
+				$html   = '';
 				if( $prices ) {
-					$response = '<select name="downloads[' . absint( $_POST['key'] ) . '][options][price_id]" class="edd-mp-price-select">';
+					$html = '<select name="downloads[' . absint( $_POST['key'] ) . '][price_id]" class="edd-mp-price-select">';
 						foreach( $prices as $key => $price ) {
-							$response .= '<option value="' . esc_attr( $key ) . '">' . $price['name']  . '</option>';
+							$html .= '<option value="' . esc_attr( $key ) . '">' . $price['name']  . '</option>';
+							$response['amount'] = $price['amount'];
 						}
-					$response .= '</select>';
+					$html .= '</select>';
 				}
-				echo $response;
+				$response['html'] = $html; 
 			}
-			die();
+
+			echo json_encode( $response );
+			exit;
 		}
 	}
 
@@ -413,7 +430,7 @@ class EDD_Manual_Purchases {
 
 			global $edd_options;
 
-			if( empty( $data['downloads'][0]['id'] ) ) {
+			if( empty( $data['downloads'] ) ) {
 				wp_die( sprintf( __( 'Please select at least one %s to add to the payment.', 'edd-manual-purchases' ), edd_get_label_singular() ) );
 			}
 
@@ -449,12 +466,11 @@ class EDD_Manual_Purchases {
 				$user_last	= $user ? $user->last_name : '';
 			}
 
+			$total               = 0.00;
 			$payment->user_id    = $user_id;
 			$payment->first_name = $user_first;
 			$payment->last_name  = $user_last;
 			$payment->email      = $email;
-
-			$price = ! empty( $data['amount'] ) ? edd_sanitize_amount( strip_tags( trim( $data['amount'] ) ) ) : false;
 
 			$cart_details = array();
 
@@ -463,32 +479,39 @@ class EDD_Manual_Purchases {
 
 				// calculate total purchase cost
 
-				if( isset( $download['options'] ) ) {
+				if( isset( $download['price_id'] ) && empty( $download['amount'] ) ) {
 
 					$prices     = get_post_meta( $download['id'], 'edd_variable_prices', true );
 					$price_key  = $download['options']['price_id'];
-					$item_price = $prices[$price_key]['amount'];
+					$item_price = $prices[ $download['price_id'] ]['amount'];
 
-				} else {
+				} elseif ( empty( $download['amount'] ) ) {
+
 					$item_price = edd_get_download_price( $download['id'] );
+			
 				}
 
 				$args = array(
-					'quantity'    => 1,
-					'price_id'    => isset( $download['options'] ) ? $download['options']['price_id'] : null,
-					'amount'      => $item_price
+					'quantity' => ! empty( $download['quantity'] ) ? absint( $download['quantity'] ) : 1,
+					'price_id' => isset( $download['price_id'] )   ? $download['price_id']           : null,
+					'amount'   => ! empty( $download['amount'] )   ? absint( $download['amount'] )   : $item_price,
+					'tax'      => ! empty( $download['tax'] )      ? absint( $download['tax'] )      : 0,
 				);
 
-				$options = isset( $download['options'] ) ? $download['options'] : array();
+				$payment->add_download( $download['id'], $args );
 
-				$payment->add_download( $download['id'], $args, $options );
+				$total += $args['amount'];
 
-				$total += $item_price;
+			}
 
+			if( ! empty( $data['amount'] ) ) {
+				$total = edd_sanitize_amount( strip_tags( trim( $data['amount'] ) ) );
+				$payment->total = $total;
 			}
 
 			// if we are using Wallet, ensure the customer can afford this purchase
 			if( ! empty( $data['wallet'] ) && class_exists( 'EDD_Wallet' ) && $user_id > 0 ) {
+
 				$wallet_value = edd_wallet()->wallet->balance( $user_id );
 
 				if( $wallet_value < $total ) {
@@ -507,7 +530,6 @@ class EDD_Manual_Purchases {
 
 			$payment->date     = $date;
 			$payment->status   = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : 'pending';
-			$payment->tax      = ! empty( $_POST['tax'] ) ? edd_sanitize_amount( sanitize_text_field( $_POST['tax'] ) ) : 0;
 			$payment->currency = edd_get_currency();
 			$payment->gateway  = sanitize_text_field( $_POST['gateway'] );
 
