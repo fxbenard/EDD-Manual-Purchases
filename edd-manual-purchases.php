@@ -400,15 +400,17 @@ class EDD_Manual_Purchases {
 				wp_die( __( 'Please enter a username, user ID, or email for the customer this payment belongs to.', 'edd-manual-purchases' ) );
 			}
 
+			$payment = new EDD_Payment;
 
-			if( is_numeric( $user ) )
+			if( is_numeric( $user ) ) {
 				$user = get_userdata( $user );
-			elseif ( is_email( $user ) )
+			} elseif ( is_email( $user ) ) {
 				$user = get_user_by( 'email', $user );
-			elseif ( is_string( $user ) )
+			} elseif ( is_string( $user ) ) {
 				$user = get_user_by( 'login', $user );
-			else
-				return; // no user assigned
+			} else {
+				wp_die( __( 'Please enter a username, user ID, or email for the customer this payment belongs to.', 'edd-manual-purchases' ) );
+			}
 
 			$user_id 	= $user ? $user->ID : 0;
 			$email 		= $user ? $user->user_email : strip_tags( trim( $data['user'] ) );
@@ -424,13 +426,10 @@ class EDD_Manual_Purchases {
 				$user_last	= $user ? $user->last_name : '';
 			}
 
-			$user_info = array(
-				'id' 			=> $user_id,
-				'email' 		=> $email,
-				'first_name'	=> $user_first,
-				'last_name'		=> $user_last,
-				'discount'		=> 'none'
-			);
+			$payment->user_id    = $user_id;
+			$payment->first_name = $user_first;
+			$payment->last_name  = $user_last;
+			$payment->email      = $email;
 
 			$price = ! empty( $data['amount'] ) ? edd_sanitize_amount( strip_tags( trim( $data['amount'] ) ) ) : false;
 
@@ -451,22 +450,18 @@ class EDD_Manual_Purchases {
 					$item_price = edd_get_download_price( $download['id'] );
 				}
 
-				$cart_details[$key] = array(
-					'name'        => get_the_title( $download['id'] ),
-					'id'          => $download['id'],
-					'item_number' => $download,
-					'price'       => $price ? $price : $item_price,
-					'subtotal'    => $price ? $price : $item_price,
+				$args = array(
 					'quantity'    => 1,
-					'tax'         => 0,
+					'price_id'    => isset( $download['options'] ) ? $download['options']['price_id'] : null,
+					'amount'      => $item_price
 				);
+
+				$options = isset( $download['options'] ) ? $download['options'] : array();
+
+				$payment->add_download( $download['id'], $args, $options );
+
 				$total += $item_price;
 
-			}
-
-			// assign total to the price given, if any
-			if( $price ) {
-				$total = $price;
 			}
 
 			// if we are using Wallet, ensure the customer can afford this purchase
@@ -487,25 +482,12 @@ class EDD_Manual_Purchases {
 				$date = date( 'Y-m-d H:i:s', current_time( 'timestamp' ) );
 			}
 
-			$status = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : 'pending';
-			$tax    = ! empty( $_POST['tax'] ) ? edd_sanitize_amount( sanitize_text_field( $_POST['tax'] ) ) : 0;
+			$payment->date     = $date;
+			$payment->status   = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : 'pending';
+			$payment->tax      = ! empty( $_POST['tax'] ) ? edd_sanitize_amount( sanitize_text_field( $_POST['tax'] ) ) : 0;
+			$payment->currency = edd_get_currency();
 
-			$purchase_data     = array(
-				'price'        => edd_sanitize_amount( $total ),
-				'tax'          => $tax,
-				'post_date'    => $date,
-				'purchase_key' => strtolower( md5( uniqid() ) ), // random key
-				'user_email'   => $email,
-				'user_info'    => $user_info,
-				'currency'     => edd_get_currency(),
-				'downloads'    => $data['downloads'],
-				'cart_details' => $cart_details,
-				'status'       => 'pending'
-			);
-
-			$payment_id = edd_insert_payment( $purchase_data );
-
-			edd_update_payment_meta( $payment_id, '_edd_payment_tax', $tax );
+			$payment->save();
 
 			if( empty( $data['receipt'] ) || $data['receipt'] != '1' ) {
 				remove_action( 'edd_complete_purchase', 'edd_trigger_purchase_receipt', 999 );
@@ -516,22 +498,19 @@ class EDD_Manual_Purchases {
 				$expiration = strtotime( $data['expiration'] . ' 23:59:59' );
 
 				EDD_Recurring_Customer::set_as_subscriber( $user_id );
-				EDD_Recurring_Customer::set_customer_payment_id( $user_id, $payment_id );
+				EDD_Recurring_Customer::set_customer_payment_id( $user_id, $payment->ID );
 				EDD_Recurring_Customer::set_customer_status( $user_id, 'active' );
 				EDD_Recurring_Customer::set_customer_expiration( $user_id, $expiration );
 			}
 
 			if( ! empty( $data['wallet'] ) && class_exists( 'EDD_Wallet' ) && $user_id > 0 ) {
 				// Update the user wallet
-				edd_wallet()->wallet->withdraw( $user_id, $total, 'withdrawal', $payment_id );
+				edd_wallet()->wallet->withdraw( $user_id, $total, 'withdrawal', $payment->ID );
 			}
 
 			if( ! empty( $data['shipped'] ) ) {
-				update_post_meta( $payment_id, '_edd_payment_shipping_status', '2' );
+				update_post_meta( $payment->ID, '_edd_payment_shipping_status', '2' );
 			}
-
-			// increase stats and log earnings
-			edd_update_payment_status( $payment_id, $status ) ;
 
 			wp_redirect( admin_url( 'edit.php?post_type=download&page=edd-payment-history&edd-message=payment_created' ) ); exit;
 
