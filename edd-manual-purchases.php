@@ -300,7 +300,6 @@ class EDD_Manual_Purchases {
 								<div class="description"><?php _e('Enter the transaction ID, if any.', 'edd-manual-purchases'); ?></div>
 							</td>
 						</tr>
-						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
 								<label for="edd-mp-date"><?php _e('Date', 'edd-manual-purchases'); ?></label>
@@ -309,6 +308,7 @@ class EDD_Manual_Purchases {
 								<input type="text" class="small-text edd_datepicker" id="edd-mp-date" name="date" style="width: 180px;"/>
 								<div class="description"><?php _e('Enter the purchase date. Leave blank for today\'s date.', 'edd-manual-purchases'); ?></div>
 							</td>
+						</tr>
 						<?php if( function_exists( 'eddc_record_commission' ) ) : ?>
 						<tr class="form-field">
 							<th scope="row" valign="top">
