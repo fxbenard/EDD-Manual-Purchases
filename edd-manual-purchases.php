@@ -492,15 +492,15 @@ class EDD_Manual_Purchases {
 				}
 
 				$args = array(
-					'quantity' => ! empty( $download['quantity'] ) ? absint( $download['quantity'] ) : 1,
-					'price_id' => isset( $download['price_id'] )   ? $download['price_id']           : null,
-					'amount'   => ! empty( $download['amount'] )   ? absint( $download['amount'] )   : $item_price,
-					'tax'      => ! empty( $download['tax'] )      ? absint( $download['tax'] )      : 0,
+					'quantity'   => ! empty( $download['quantity'] ) ? absint( $download['quantity'] ) : 1,
+					'price_id'   => isset( $download['price_id'] )   ? $download['price_id']           : null,
+					'item_price' => ! empty( $download['amount'] )   ? absint( $download['amount'] )   : $item_price,
+					'tax'        => ! empty( $download['tax'] )      ? absint( $download['tax'] )      : 0,
 				);
 
 				$payment->add_download( $download['id'], $args );
 
-				$total += $args['amount'];
+				$total += ( $args['item_price'] * $args['quantity'] );
 
 			}
 
