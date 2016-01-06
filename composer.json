@@ -1,5 +1,5 @@
 {
-    "name": "easydigitaldownloads/EDD-Manual-Purchases",
+    "name": "easydigitaldownloads/edd-manual-purchases",
     "type": "wordpress-plugin",
     "description": "Provides an admin interface for manually creating purchase orders in Easy Digital Downloads",
     "keywords": [ "edd", "manual", "purchases", "plugin"],
