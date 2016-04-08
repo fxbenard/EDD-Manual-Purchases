@@ -305,17 +305,6 @@ class EDD_Manual_Purchases {
 						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<?php _e( 'Send Receipt', 'edd-manual-purchases' ); ?>
-							</th>
-							<td class="edd-mp-receipt">
-								<label for="edd-mp-receipt">
-									<input type="checkbox" id="edd-mp-receipt" name="receipt" style="width: auto;" checked="1" value="1"/>
-									<?php _e( 'Send the purchase receipt to the buyer?', 'edd-manual-purchases' ); ?>
-								</label>
-							</td>
-						</tr>
-						<tr class="form-field">
-							<th scope="row" valign="top">
 								<label for="edd-mp-payment-method"><?php _e( 'Payment Method', 'edd-manual-purchases' ); ?></label>
 							</th>
 							<td class="edd-mp-gateways">
@@ -385,6 +374,17 @@ class EDD_Manual_Purchases {
 							</td>
 						</tr>
 						<?php endif; ?>
+						<tr class="form-field">
+							<th scope="row" valign="top">
+								<?php _e( 'Send Receipt', 'edd-manual-purchases' ); ?>
+							</th>
+							<td class="edd-mp-receipt">
+								<label for="edd-mp-receipt">
+									<input type="checkbox" id="edd-mp-receipt" name="receipt" style="width: auto;" checked="1" value="1"/>
+									<?php _e( 'Send the purchase receipt to the buyer?', 'edd-manual-purchases' ); ?>
+								</label>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 				<?php wp_nonce_field( 'edd_create_payment_nonce', 'edd_create_payment_nonce' ); ?>
