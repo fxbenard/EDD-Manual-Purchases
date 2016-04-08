@@ -108,7 +108,7 @@ class EDD_Manual_Purchases {
 
 		?>
 		<p id="edd_create_payment_go">
-			<a href="<?php echo esc_url( add_query_arg( 'page', 'edd-manual-purchase', admin_url( 'options.php' ) ) ); ?>" class="button-secondary"><?php _e('Create Payment', 'edd-manual-purchases'); ?></a>
+			<a href="<?php echo esc_url( add_query_arg( 'page', 'edd-manual-purchase', admin_url( 'options.php' ) ) ); ?>" class="button-secondary"><?php _e( 'Create Payment', 'edd-manual-purchases' ); ?></a>
 		</p>
 		<?php
 	}
@@ -135,7 +135,7 @@ class EDD_Manual_Purchases {
 	public static function payment_creation_form() {
 		?>
 		<div class="wrap">
-			<h2><?php _e('Create New Payment', 'edd-manual-purchases'); ?></h2>
+			<h2><?php _e( 'Create New Payment', 'edd-manual-purchases' ); ?></h2>
 			<script type="text/javascript">
 				jQuery(document).ready(function($) {
 					// check for variable prices
@@ -249,63 +249,63 @@ class EDD_Manual_Purchases {
 						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<label for="edd-mp-user"><?php _e('Buyer ID or Email', 'edd-manual-purchases'); ?></label>
+								<label for="edd-mp-user"><?php _e( 'Customer Email', 'edd-manual-purchases' ); ?></label>
 							</th>
-							<td class="edd-mp-user">
-								<input type="text" class="small-text" id="edd-mp-user" name="user" style="width: 180px;"/>
-								<div class="description"><?php _e('Enter the user ID or email of the buyer.', 'edd-manual-purchases'); ?></div>
+							<td class="edd-mp-email">
+								<input type="text" class="small-text" id="edd-mp-email" name="email" style="width: 180px;"/>
+								<div class="description"><?php _e( 'Enter the email address of the customer.', 'edd-manual-purchases' ); ?></div>
 							</td>
 						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<label for="edd-mp-last"><?php _e('Buyer First Name', 'edd-manual-purchases'); ?></label>
+								<label for="edd-mp-last"><?php _e( 'Customer First Name', 'edd-manual-purchases' ); ?></label>
 							</th>
 							<td class="edd-mp-last">
 								<input type="text" class="small-text" id="edd-mp-last" name="first" style="width: 180px;"/>
-								<div class="description"><?php _e('Enter the first name of the buyer (optional).', 'edd-manual-purchases'); ?></div>
+								<div class="description"><?php _e( 'Enter the first name of the customer (optional).', 'edd-manual-purchases' ); ?></div>
 							</td>
 						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<label for="edd-mp-last"><?php _e('Buyer Last Name', 'edd-manual-purchases'); ?></label>
+								<label for="edd-mp-last"><?php _e( 'Customer Last Name', 'edd-manual-purchases' ); ?></label>
 							</th>
 							<td class="edd-mp-last">
 								<input type="text" class="small-text" id="edd-mp-last" name="last" style="width: 180px;"/>
-								<div class="description"><?php _e('Enter the last name of the buyer (optional).', 'edd-manual-purchases'); ?></div>
+								<div class="description"><?php _e( 'Enter the last name of the customer (optional).', 'edd-manual-purchases' ); ?></div>
 							</td>
 						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<label for="edd-mp-amount"><?php _e('Amount', 'edd-manual-purchases'); ?></label>
+								<label for="edd-mp-amount"><?php _e( 'Amount', 'edd-manual-purchases' ); ?></label>
 							</th>
 							<td class="edd-mp-downloads">
 								<input type="text" class="small-text" id="edd-mp-amount" name="amount" style="width: 180px;"/>
-								<div class="description"><?php _e('Enter the total purchase amount, or leave blank to auto calculate price based on the selected items above. Use 0.00 for 0.', 'edd-manual-purchases'); ?></div>
+								<div class="description"><?php _e( 'Enter the total purchase amount, or leave blank to auto calculate price based on the selected items above. Use 0.00 for 0.', 'edd-manual-purchases' ); ?></div>
 							</td>
 						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<?php _e('Payment status', 'edd-manual-purchases'); ?>
+								<?php _e( 'Payment status', 'edd-manual-purchases' ); ?>
 							</th>
 							<td class="edd-mp-status">
 								<?php echo EDD()->html->select( array( 'name' => 'status', 'options' => edd_get_payment_statuses(), 'selected' => 'publish', 'show_option_all' => false, 'show_option_none' => false ) ); ?>
-								<label for="edd-mp-status" class="description"><?php _e('Select the status of this payment.', 'edd-manual-purchases'); ?></label>
+								<label for="edd-mp-status" class="description"><?php _e( 'Select the status of this payment.', 'edd-manual-purchases' ); ?></label>
 							</td>
 						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<?php _e('Send Receipt', 'edd-manual-purchases'); ?>
+								<?php _e( 'Send Receipt', 'edd-manual-purchases' ); ?>
 							</th>
 							<td class="edd-mp-receipt">
 								<label for="edd-mp-receipt">
 									<input type="checkbox" id="edd-mp-receipt" name="receipt" style="width: auto;" checked="1" value="1"/>
-									<?php _e('Send the purchase receipt to the buyer?', 'edd-manual-purchases'); ?>
+									<?php _e( 'Send the purchase receipt to the buyer?', 'edd-manual-purchases' ); ?>
 								</label>
 							</td>
 						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<label for="edd-mp-payment-method"><?php _e('Payment Method', 'edd-manual-purchases'); ?></label>
+								<label for="edd-mp-payment-method"><?php _e( 'Payment Method', 'edd-manual-purchases' ); ?></label>
 							</th>
 							<td class="edd-mp-gateways">
 								<select name="gateway" id="edd-mp-payment-method">
@@ -314,60 +314,49 @@ class EDD_Manual_Purchases {
 										<option value="<?php echo esc_attr( $gateway_id ); ?>"><?php echo esc_html( $gateway['admin_label'] ); ?></option>
 									<?php endforeach; ?>
 								</select>
-								<div class="description"><?php _e('Select the payment method used.', 'edd-manual-purchases'); ?></div>
+								<div class="description"><?php _e( 'Select the payment method used.', 'edd-manual-purchases' ); ?></div>
 							</td>
 						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<label for="edd-mp-transaction-id"><?php _e('Transaction ID', 'edd-manual-purchases'); ?></label>
+								<label for="edd-mp-transaction-id"><?php _e( 'Transaction ID', 'edd-manual-purchases' ); ?></label>
 							</th>
 							<td class="edd-mp-downloads">
 								<input type="text" class="small-text" id="edd-mp-transaction-id" name="transaction_id" style="width: 180px;"/>
-								<div class="description"><?php _e('Enter the transaction ID, if any.', 'edd-manual-purchases'); ?></div>
+								<div class="description"><?php _e( 'Enter the transaction ID, if any.', 'edd-manual-purchases' ); ?></div>
 							</td>
 						</tr>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<label for="edd-mp-date"><?php _e('Date', 'edd-manual-purchases'); ?></label>
+								<label for="edd-mp-date"><?php _e( 'Date', 'edd-manual-purchases' ); ?></label>
 							</th>
 							<td class="edd-mp-downloads">
 								<input type="text" class="small-text edd_datepicker" id="edd-mp-date" name="date" style="width: 180px;"/>
-								<div class="description"><?php _e('Enter the purchase date. Leave blank for today\'s date.', 'edd-manual-purchases'); ?></div>
+								<div class="description"><?php _e( 'Enter the purchase date, or leave blank for today\'s date.', 'edd-manual-purchases' ); ?></div>
 							</td>
 						</tr>
 						<?php if( function_exists( 'eddc_record_commission' ) ) : ?>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<?php _e('Commission', 'edd-manual-purchases'); ?>
+								<?php _e( 'Commission', 'edd-manual-purchases' ); ?>
 							</th>
 							<td class="edd-mp-downloads">
 								<label for="edd-mp-commission">
 									<input type="checkbox" id="edd-mp-commission" name="commission" style="width: auto;"/>
-									<?php _e('Record commissions (if any) for this manual purchase?', 'edd-manual-purchases'); ?>
+									<?php _e( 'Record commissions (if any) for this manual purchase?', 'edd-manual-purchases' ); ?>
 								</label>
-							</td>
-						</tr>
-						<?php endif; ?>
-						<?php if( class_exists( 'EDD_Recurring' ) ) : ?>
-						<tr class="form-field">
-							<th scope="row" valign="top">
-								<label for="edd-mp-date"><?php _e('Customer Expiration', 'edd-manual-purchases'); ?></label>
-							</th>
-							<td class="edd-mp-downloads">
-								<input type="text" class="small-text edd_datepicker" id="edd-mp-expiration" name="expiration" style="width: 180px;"/>
-								<div class="description"><?php _e('Set the customer\'s status to Active and set their expiration date. Leave blank to leave customer as is.', 'edd-manual-purchases'); ?></div>
 							</td>
 						</tr>
 						<?php endif; ?>
 						<?php if( class_exists( 'EDD_Simple_Shipping' ) ) : ?>
 						<tr class="form-field">
 							<th scope="row" valign="top">
-								<label for="edd-mp-shipped"><?php _e('Shipped', 'edd-manual-purchases'); ?></label>
+								<label for="edd-mp-shipped"><?php _e( 'Shipped', 'edd-manual-purchases' ); ?></label>
 							</th>
 							<td class="edd-mp-shipped">
 								<label for="edd-mp-shipped">
 									<input type="checkbox" id="edd-mp-shipped" name="shipped" style="width: auto;"/>
-									<?php _e('Mark order as shipped?', 'edd-manual-purchases'); ?>
+									<?php _e( 'Mark order as shipped?', 'edd-manual-purchases' ); ?>
 								</label>
 							</td>
 						</tr>
@@ -417,6 +406,11 @@ class EDD_Manual_Purchases {
 					$html .= '</select>';
 				}
 				$response['html'] = $html; 
+
+			} else {
+
+				$response['amount'] = edd_get_download_price( $download_id );
+
 			}
 
 			echo json_encode( $response );
@@ -434,43 +428,40 @@ class EDD_Manual_Purchases {
 				wp_die( sprintf( __( 'Please select at least one %s to add to the payment.', 'edd-manual-purchases' ), edd_get_label_singular() ) );
 			}
 
-			$user = strip_tags( trim( $data['user'] ) );
+			$email = strip_tags( trim( $data['email'] ) );
 
-			if( empty( $user ) ) {
-				wp_die( __( 'Please enter a username, user ID, or email for the customer this payment belongs to.', 'edd-manual-purchases' ) );
+			if( empty( $email ) ) {
+				wp_die( __( 'Please enter the email address of the customer.', 'edd-manual-purchases' ) );
 			}
 
-			$payment = new EDD_Payment;
+			$payment    = new EDD_Payment;
+			$customer   = new EDD_Customer( $email, $by_user_id );
+			$user_id    = 0;
+			$first_name = isset( $data['first'] ) ? sanitize_text_field( $data['first'] ) : '';
+			$last_name  = isset( $data['last'] ) ? sanitize_text_field( $data['first'] ) : '';
 
-			if( is_numeric( $user ) ) {
-				$user = get_userdata( $user );
-			} elseif ( is_email( $user ) ) {
-				$user = get_user_by( 'email', $user );
-			} elseif ( is_string( $user ) ) {
-				$user = get_user_by( 'login', $user );
-			} else {
-				wp_die( __( 'Please enter a username, user ID, or email for the customer this payment belongs to.', 'edd-manual-purchases' ) );
-			}
+			if( ! $customer->id > 0 ) {
 
-			$user_id 	= $user ? $user->ID : 0;
-			$email 		= $user ? $user->user_email : strip_tags( trim( $data['user'] ) );
-			if( isset( $data['first'] ) ) {
-				$user_first = sanitize_text_field( $data['first'] );
-			} else {
-				$user_first	= $user ? $user->first_name : '';
-			}
+				$user = get_user_by( 'email', $email );
 
-			if( isset( $data['last'] ) ) {
-				$user_last = sanitize_text_field( $data['last'] );
-			} else {
-				$user_last	= $user ? $user->last_name : '';
-			}
+				if( $user ) {
+					$user_id = $user->ID;
+				}
 
-			$total               = 0.00;
-			$payment->user_id    = $user_id;
-			$payment->first_name = $user_first;
-			$payment->last_name  = $user_last;
-			$payment->email      = $email;
+				$customer->create( array(
+					'email'   => $email,
+					'name'    => $first . ' ' . $last,
+					'user_id' => $user_id
+				) );
+
+			} 
+
+			$total                = 0.00;
+			$payment->customer_id = $customer->id;
+			$payment->user_id     = $user_id;
+			$payment->first_name  = $user_first;
+			$payment->last_name   = $user_last;
+			$payment->email       = $email;
 
 			$cart_details = array();
 
@@ -541,16 +532,6 @@ class EDD_Manual_Purchases {
 
 			if( empty( $data['receipt'] ) || $data['receipt'] != '1' ) {
 				remove_action( 'edd_complete_purchase', 'edd_trigger_purchase_receipt', 999 );
-			}
-
-			if( ! empty( $data['expiration'] ) && class_exists( 'EDD_Recurring_Customer' ) && $user_id > 0 ) {
-
-				$expiration = strtotime( $data['expiration'] . ' 23:59:59' );
-
-				EDD_Recurring_Customer::set_as_subscriber( $user_id );
-				EDD_Recurring_Customer::set_customer_payment_id( $user_id, $payment->ID );
-				EDD_Recurring_Customer::set_customer_status( $user_id, 'active' );
-				EDD_Recurring_Customer::set_customer_expiration( $user_id, $expiration );
 			}
 
 			if( ! empty( $data['wallet'] ) && class_exists( 'EDD_Wallet' ) && $user_id > 0 ) {
