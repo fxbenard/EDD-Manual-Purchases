@@ -60,8 +60,15 @@ class EDD_Manual_Purchases {
 	 */
 	private function init() {
 
-		if( ! function_exists( 'edd_price' ) )
+		if( ! function_exists( 'edd_price' ) ) {
 			return; // EDD not present
+		}
+
+		if( version_compare( EDD_VERSION, '2.5', '<' ) ) {
+
+			add_action( 'admin_notices', array( $this, 'edd_version_notice' ) );
+			return;
+		}
 
 		global $edd_options;
 
@@ -91,6 +98,10 @@ class EDD_Manual_Purchases {
 			$eddc_license = new EDD_License( __FILE__, EDD_MP_PRODUCT_NAME, EDD_MP_VERSION, 'Pippin Williamson' );
 		}
 
+	}
+
+	public function edd_version_notice() {
+		echo '<div class="error"><p>' . __( 'Your version of Easy Digital Downloads is below the minimum version for Manual Purchases. Please update to 2.5 or later.', 'edd-manual-purchases' ) . '</p></div>';
 	}
 
 	public static function textdomain() {
