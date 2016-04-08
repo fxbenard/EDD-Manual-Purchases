@@ -1,12 +1,11 @@
 <?php
 /*
 Plugin Name: Easy Digital Downloads - Manual Purchases
-Plugin URI: http://easydigitaldownloads.com/extension/manual-purchases/
+Plugin URI: https://easydigitaldownloads.com/downloads/manual-purchases/
 Description: Provides an admin interface for manually creating purchase orders in Easy Digital Downloads
-Version: 1.9.3
-Author: Pippin Williamson
-Author URI:  http://pippinsplugins.com
-Contributors: mordauk
+Version: 2.0
+Author: Easy Digital Downloads Team
+Author URI:  https://easydigitaldownloads.com
 Text Domain: edd-manual-purchases
 Domain Path: languages
 */
@@ -42,9 +41,8 @@ class EDD_Manual_Purchases {
 	 */
 	public function __construct() {
 
-		define( 'EDD_MP_STORE_API_URL', 'http://easydigitaldownloads.com' );
 		define( 'EDD_MP_PRODUCT_NAME', 'Manual Purchases' );
-		define( 'EDD_MP_VERSION', '1.9.3' );
+		define( 'EDD_MP_VERSION', '2.0' );
 		$this->init();
 
 	}
@@ -95,7 +93,7 @@ class EDD_Manual_Purchases {
 
 		// auto updater
 		if( class_exists( 'EDD_License' ) ) {
-			$eddc_license = new EDD_License( __FILE__, EDD_MP_PRODUCT_NAME, EDD_MP_VERSION, 'Pippin Williamson' );
+			$eddc_license = new EDD_License( __FILE__, EDD_MP_PRODUCT_NAME, EDD_MP_VERSION, 'Easy Digital Downloads' );
 		}
 
 	}
