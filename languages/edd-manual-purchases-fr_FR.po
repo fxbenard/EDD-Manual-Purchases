@@ -3,15 +3,15 @@ msgstr ""
 "Project-Id-Version: Easy Digital Downloads - Manual Purchases\n"
 "Report-Msgid-Bugs-To: https://easydigitaldownloads.com/support/forum/add-on-"
 "plugins/manual-purchases/nPOT-Creation-Date: 2014-12-02 16:33:27+00:00\n"
-"POT-Creation-Date: 2015-02-19 09:09-0600\n"
-"PO-Revision-Date: 2015-02-19 09:09-0600\n"
-"Last-Translator: Chris Christoff <chriscct7@gmail.com>\n"
+"POT-Creation-Date: 2014-12-02 16:33:27+00:00\n"
+"PO-Revision-Date: 2016-04-09 09:55+0200\n"
+"Last-Translator: FX Bénard <fx@fxbenard.com>\n"
 "Language-Team: fxbenard | FxB <fx@fxbenard.com>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 1.8.7\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -20,144 +20,207 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: edd-manual-purchases.php:111 edd-manual-purchases.php:118
-#: edd-manual-purchases.php:345
+#: edd-manual-purchases.php:102
+msgid ""
+"Your version of Easy Digital Downloads is below the minimum version for "
+"Manual Purchases. Please update to 2.5 or later."
+msgstr ""
+"EDD Manual Purchases nécessite Easy Digital Downloads en version 2.5 ou "
+"supérieure. Veuillez mettre à jour Easy Digital Downloads."
+
+#: edd-manual-purchases.php:120 edd-manual-purchases.php:127
+#: edd-manual-purchases.php:391
 msgid "Create Payment"
 msgstr "Créer un paiement"
 
-#: edd-manual-purchases.php:136
+#: edd-manual-purchases.php:147
 msgid "Create New Payment"
 msgstr "Créer un nouveau paiement"
 
-#: edd-manual-purchases.php:210
-#, php-format
-msgid "Choose %s"
-msgstr "Choisir des %s"
+#: edd-manual-purchases.php:208
+msgid "Price Option"
+msgstr "Option de prix"
 
-#: edd-manual-purchases.php:219
-#, php-format
-msgid "No %s created yet"
-msgstr "Aucun %s créé pour l&#39;instant"
-
-#: edd-manual-purchases.php:223
-msgid "Add another"
-msgstr "En ajouter un autre"
-
-#: edd-manual-purchases.php:229
-msgid "Buyer ID or Email"
-msgstr "ID ou E-mail de l'acheteur"
-
-#: edd-manual-purchases.php:233
-msgid "Enter the user ID or email of the buyer."
-msgstr "Entrer l'ID ou l'adresse e-mail de l'acheteur."
-
-#: edd-manual-purchases.php:238
-msgid "Buyer First Name"
-msgstr "Prénom de l'acheteur"
-
-#: edd-manual-purchases.php:242
-msgid "Enter the first name of the buyer (optional)."
-msgstr "Entrer le prénom de l'acheteur (facultatif)."
-
-#: edd-manual-purchases.php:247
-msgid "Buyer Last Name"
-msgstr "Nom de l'acheteur"
-
-#: edd-manual-purchases.php:251
-msgid "Enter the last name of the buyer (optional)."
-msgstr "Entrer le nom de l'acheteur (facultatif)."
-
-#: edd-manual-purchases.php:256
+#: edd-manual-purchases.php:209 edd-manual-purchases.php:288
 msgid "Amount"
 msgstr "Montant"
 
-#: edd-manual-purchases.php:260
+#: edd-manual-purchases.php:211
+msgid "Tax"
+msgstr "TVA"
+
+#: edd-manual-purchases.php:213
+msgid "Quantity"
+msgstr "Quantité"
+
+#: edd-manual-purchases.php:231
+msgid "N/A"
+msgstr "N/D"
+
+#: edd-manual-purchases.php:233
+msgid "Enter amount"
+msgstr "Saisissez le montant"
+
+#: edd-manual-purchases.php:237
+msgid "Enter taxed amount"
+msgstr "Saisissez le montant imposable"
+
+#: edd-manual-purchases.php:242
+msgid "Enter quantity"
+msgstr "Saisissez la quantité"
+
+#: edd-manual-purchases.php:251
+msgid "Add New"
+msgstr "Ajouter "
+
+#: edd-manual-purchases.php:261
+msgid "Customer Email"
+msgstr "E-mail de l’acheteur"
+
+#: edd-manual-purchases.php:265
+msgid "Enter the email address of the customer."
+msgstr "Saisissez l’adresse e-mail de l’acheteur."
+
+#: edd-manual-purchases.php:270
+msgid "Customer First Name"
+msgstr "Prénom de l’acheteur"
+
+#: edd-manual-purchases.php:274
+msgid "Enter the first name of the customer (optional)."
+msgstr "Saisissez le prénom de l’acheteur (facultatif)."
+
+#: edd-manual-purchases.php:279
+msgid "Customer Last Name"
+msgstr "Nom de l’acheteur"
+
+#: edd-manual-purchases.php:283
+msgid "Enter the last name of the customer (optional)."
+msgstr "Saisissez le nom de l’acheteur (facultatif)."
+
+#: edd-manual-purchases.php:292
 msgid ""
 "Enter the total purchase amount, or leave blank to auto calculate price "
 "based on the selected items above. Use 0.00 for 0."
 msgstr ""
-"Entrer le montant total de l&#39;achat, ou laisser vide pour calculer le "
-"prix automatiquement sur la base des éléments sélectionnés ci-dessus. "
-"Utiliser 0.00 pour 0."
+"Saisissez le montant total de l’achat, ou laisser vide pour calculer le prix "
+"automatiquement sur la base des éléments sélectionnés ci-dessus. Utiliser "
+"0.00 pour 0."
 
-#: edd-manual-purchases.php:266
-msgid "Tax"
-msgstr ""
-
-#: edd-manual-purchases.php:270
-msgid "Enter the total tax charged on the purchase."
-msgstr ""
-
-#: edd-manual-purchases.php:276
+#: edd-manual-purchases.php:297
 msgid "Payment status"
 msgstr "État du paiement"
 
-#: edd-manual-purchases.php:280
+#: edd-manual-purchases.php:301
 msgid "Select the status of this payment."
-msgstr "Sélectionner l&#39;état de ce paiement."
+msgstr "Sélectionnez l’état de ce paiement."
 
-#: edd-manual-purchases.php:285
-msgid "Send Receipt"
-msgstr "Envoyer le reçu"
+#: edd-manual-purchases.php:306
+msgid "Payment Method"
+msgstr "﻿Mode de paiement"
 
-#: edd-manual-purchases.php:290
-msgid "Send the purchase receipt to the buyer?"
-msgstr "Envoyer la facture d&#39;achat à l&#39;acheteur ?"
+#: edd-manual-purchases.php:310
+msgid "Manual Payment"
+msgstr "Paiement manuel"
 
-#: edd-manual-purchases.php:296
+#: edd-manual-purchases.php:315
+msgid "Select the payment method used."
+msgstr "Sélectionnez la méthode de paiement utilisée."
+
+#: edd-manual-purchases.php:320
+msgid "Transaction ID"
+msgstr "ID de la transaction "
+
+#: edd-manual-purchases.php:324
+msgid "Enter the transaction ID, if any."
+msgstr "Saisissez l’ID de la transaction, le cas échéant."
+
+#: edd-manual-purchases.php:329
 msgid "Date"
 msgstr "Date"
 
-#: edd-manual-purchases.php:300
-msgid "Enter the purchase date. Leave blank for today's date."
+#: edd-manual-purchases.php:333
+msgid "Enter the purchase date, or leave blank for today's date."
 msgstr ""
-"Entrer la date d&#39;achat. Laisser ce champ vide pour la date d&#39;"
-"aujourd&#39;hui."
+"Saisissez la date d’achat. Laisser ce champ vide pour la date d'aujourd’hui."
 
-#: edd-manual-purchases.php:306
+#: edd-manual-purchases.php:339
 msgid "Commission"
 msgstr "Commission"
 
-#: edd-manual-purchases.php:311
+#: edd-manual-purchases.php:344
 msgid "Record commissions (if any) for this manual purchase?"
 msgstr "Enregistrer la commission (si elle existe) pour cet achat manuel ?"
 
-#: edd-manual-purchases.php:319
-msgid "Customer Expiration"
-msgstr "Expiration du client"
-
-#: edd-manual-purchases.php:323
-msgid ""
-"Set the customer's status to Active and set their expiration date. Leave "
-"blank to leave customer as is."
-msgstr ""
-"Définir le statut du client sur Actif et régler la date d&#39;expiration. "
-"Laisser vide pour laisser le client tel quel."
-
-#: edd-manual-purchases.php:330
+#: edd-manual-purchases.php:352
 msgid "Shipped"
 msgstr "Envoyé"
 
-#: edd-manual-purchases.php:335
+#: edd-manual-purchases.php:357
 msgid "Mark order as shipped?"
 msgstr "Marquer la commande envoyée ?"
 
-#: edd-manual-purchases.php:381
+#: edd-manual-purchases.php:365
+msgid "Pay From Wallet"
+msgstr "Payer avec le portefeuille"
+
+#: edd-manual-purchases.php:370
+msgid "Use funds from the customers' wallet to pay for this payment."
+msgstr "Utiliser les fonds du portefeuille du client pour ce paiement."
+
+#: edd-manual-purchases.php:377
+msgid "Send Receipt"
+msgstr "Envoyer le reçu"
+
+#: edd-manual-purchases.php:382
+msgid "Send the purchase receipt to the buyer?"
+msgstr "Envoyer la facture d’achat à l’acheteur ?"
+
+#: edd-manual-purchases.php:437
 #, php-format
 msgid "Please select at least one %s to add to the payment."
 msgstr "Veuillez sélectionner au moins un %s à ajouter au paiement."
 
-#: edd-manual-purchases.php:387
-msgid ""
-"Please enter a username, user ID, or email for the customer this payment "
-"belongs to."
-msgstr ""
-"Veuillez entrer un nom d'utilisateur, une ID, ou un e-mail pour le client "
-"qui a réalisé ce paiement."
+#: edd-manual-purchases.php:443
+msgid "Please enter the email address of the customer."
+msgstr "Veuillez saisir l’adresse e-mail du l’acheteur."
 
-#: edd-manual-purchases.php:516
+#: edd-manual-purchases.php:518
+msgid ""
+"The customer does not have sufficient funds in their wallet to pay for this "
+"purchase."
+msgstr ""
+"Le client ne dispose pas de fonds suffisants dans son portefeuille pour "
+"payer cet achat."
+
+#: edd-manual-purchases.php:562
 msgid "The payment has been created."
 msgstr "Le paiement a été créé."
+
+#~ msgid "Choose %s"
+#~ msgstr "Choisir des %s"
+
+#~ msgid "No %s created yet"
+#~ msgstr "Aucun %s créé pour l&#39;instant"
+
+#~ msgid "Add another"
+#~ msgstr "En ajouter un autre"
+
+#~ msgid "Buyer ID or Email"
+#~ msgstr "ID ou E-mail de l'acheteur"
+
+#~ msgid ""
+#~ "Set the customer's status to Active and set their expiration date. Leave "
+#~ "blank to leave customer as is."
+#~ msgstr ""
+#~ "Définir le statut du client sur Actif et régler la date d&#39;expiration. "
+#~ "Laisser vide pour laisser le client tel quel."
+
+#~ msgid ""
+#~ "Please enter a username, user ID, or email for the customer this payment "
+#~ "belongs to."
+#~ msgstr ""
+#~ "Veuillez entrer un nom d'utilisateur, une ID, ou un e-mail pour le client "
+#~ "qui a réalisé ce paiement."
 
 #~ msgid "Easy Digital Downloads - Manual Purchases"
 #~ msgstr "Easy Digital Downloads - Manual Purchases"
