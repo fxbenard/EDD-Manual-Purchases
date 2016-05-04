@@ -707,6 +707,14 @@ class EDD_Manual_Purchases {
 			$payment->last_name   = $last;
 			$payment->email       = $email;
 
+			// Make sure the user info data is set
+			$payment->user_info = array(
+				'first_name' => $first,
+				'last_name'  => $last,
+				'id'         => $user_id,
+				'email'      => $email,
+			);
+
 			$cart_details = array();
 
 			$total = 0;
@@ -767,7 +775,7 @@ class EDD_Manual_Purchases {
 			}
 
 			$payment->date     = $date;
-			$payment->status   = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : 'pending';
+			$payment->status   = 'pending';
 			$payment->currency = edd_get_currency();
 			$payment->gateway  = sanitize_text_field( $_POST['gateway'] );
 
@@ -776,6 +784,11 @@ class EDD_Manual_Purchases {
 			}
 
 			$payment->save();
+
+			if ( isset( $_POST['status'] ) && 'pending' !== $_POST['status'] ) {
+				$payment->status = $_POST['status'];
+				$payment->save();
+			}
 
 			if( empty( $data['receipt'] ) || $data['receipt'] != '1' ) {
 				remove_action( 'edd_complete_purchase', 'edd_trigger_purchase_receipt', 999 );
