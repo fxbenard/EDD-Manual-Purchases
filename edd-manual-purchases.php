@@ -377,8 +377,7 @@ class EDD_Manual_Purchases {
 														'id'       => 'downloads',
 														'class'    => 'mp-downloads',
 														'multiple' => false,
-														'chosen'   => true,
-														'bundles'  => false
+														'chosen'   => true
 													) );
 													?>
 												</td>
