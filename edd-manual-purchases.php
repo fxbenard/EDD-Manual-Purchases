@@ -784,13 +784,13 @@ class EDD_Manual_Purchases {
 
 			$payment->save();
 
+			if( ! isset( $data['receipt'] ) ) {
+				remove_action( 'edd_complete_purchase', 'edd_trigger_purchase_receipt', 999 );
+			}
+
 			if ( isset( $_POST['status'] ) && 'pending' !== $_POST['status'] ) {
 				$payment->status = $_POST['status'];
 				$payment->save();
-			}
-
-			if( empty( $data['receipt'] ) || $data['receipt'] != '1' ) {
-				remove_action( 'edd_complete_purchase', 'edd_trigger_purchase_receipt', 999 );
 			}
 
 			if( ! empty( $data['wallet'] ) && class_exists( 'EDD_Wallet' ) && $user_id > 0 ) {
