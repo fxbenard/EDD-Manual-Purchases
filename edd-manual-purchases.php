@@ -777,6 +777,7 @@ class EDD_Manual_Purchases {
 			$payment->status   = 'pending';
 			$payment->currency = edd_get_currency();
 			$payment->gateway  = sanitize_text_field( $_POST['gateway'] );
+			$payment->mode     = edd_is_test_mode() ? 'test' : 'live';
 
 			if( ! empty( $_POST['transaction_id'] ) ) {
 				$payment->transaction_id = sanitize_text_field( $_POST['transaction_id'] );
