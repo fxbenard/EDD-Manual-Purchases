@@ -3,8 +3,8 @@
 Plugin Name: Easy Digital Downloads - Manual Purchases
 Plugin URI: https://easydigitaldownloads.com/downloads/manual-purchases/
 Description: Provides an admin interface for manually creating purchase orders in Easy Digital Downloads
-Version: 2.0.3
-Author: Easy Digital Downloads Team
+Version: 2.0.4
+Author: Easy Digital Downloads
 Author URI:  https://easydigitaldownloads.com
 Text Domain: edd-manual-purchases
 Domain Path: languages
@@ -42,7 +42,7 @@ class EDD_Manual_Purchases {
 	public function __construct() {
 
 		define( 'EDD_MP_PRODUCT_NAME', 'Manual Purchases' );
-		define( 'EDD_MP_VERSION', '2.0.3' );
+		define( 'EDD_MP_VERSION', '2.0.4' );
 		$this->init();
 
 	}
