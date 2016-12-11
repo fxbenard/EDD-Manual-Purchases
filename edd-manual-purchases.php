@@ -3,8 +3,8 @@
 Plugin Name: Easy Digital Downloads - Manual Purchases
 Plugin URI: https://easydigitaldownloads.com/downloads/manual-purchases/
 Description: Provides an admin interface for manually creating purchase orders in Easy Digital Downloads
-Version: 2.0.3
-Author: Easy Digital Downloads Team
+Version: 2.0.4
+Author: Easy Digital Downloads
 Author URI:  https://easydigitaldownloads.com
 Text Domain: edd-manual-purchases
 Domain Path: languages
@@ -42,7 +42,7 @@ class EDD_Manual_Purchases {
 	public function __construct() {
 
 		define( 'EDD_MP_PRODUCT_NAME', 'Manual Purchases' );
-		define( 'EDD_MP_VERSION', '2.0.3' );
+		define( 'EDD_MP_VERSION', '2.0.4' );
 		$this->init();
 
 	}
@@ -785,8 +785,14 @@ class EDD_Manual_Purchases {
 
 			$payment->save();
 
-			if( ! isset( $data['receipt'] ) ) {
+			if ( ! isset( $data['receipt'] ) ) {
 				remove_action( 'edd_complete_purchase', 'edd_trigger_purchase_receipt', 999 );
+
+				// if we're using EDD Per Product Emails, prevent the custom email from being sent
+				if ( class_exists( 'EDD_Per_Product_Emails' ) ) {
+					remove_action( 'edd_complete_purchase', 'edd_ppe_trigger_purchase_receipt', 999, 1 );
+				}
+
 			}
 
 			if ( isset( $_POST['status'] ) && 'pending' !== $_POST['status'] ) {
