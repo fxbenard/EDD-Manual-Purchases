@@ -688,15 +688,15 @@ class EDD_Manual_Purchases {
 					$user_id = $user->ID;
 					$email = $user->user_email;
 				} elseif ( class_exists( 'EDD_Auto_Register' ) ) {
-                    $user_info = array(
-                        'user_info' => array(
-                            'id'         => 0,
-                            'email'      => $email,
-                            'first_name' => $first,
-                            'last_name'  => $last
-                        )
-                    );
-                    $user_id = edd_auto_register()->create_user( $user_info );
+					$user_info = array(
+						'user_info' => array(
+							'id'         => 0,
+							'email'      => $email,
+							'first_name' => $first,
+							'last_name'  => $last
+						)
+					);
+					$user_id = edd_auto_register()->create_user( $user_info );
 				}
 
 				$customer->create( array(
