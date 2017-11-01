@@ -711,7 +711,7 @@ class EDD_Manual_Purchases {
 
 			$total                = 0.00;
 			$payment->customer_id = $customer->id;
-			$payment->user_id     = $user_id;
+			$payment->user_id     = $customer->user_id;
 			$payment->first_name  = $first;
 			$payment->last_name   = $last;
 			$payment->email       = $email;
@@ -720,7 +720,7 @@ class EDD_Manual_Purchases {
 			$payment->user_info = array(
 				'first_name' => $first,
 				'last_name'  => $last,
-				'id'         => $user_id,
+				'id'         => $customer->user_id,
 				'email'      => $email,
 			);
 
