@@ -743,8 +743,6 @@ class EDD_Manual_Purchases {
 
 				}
 
-				$item_tax   =
-
 				$args = array(
 					'quantity'   => ! empty( $download['quantity'] ) ? absint( $download['quantity'] )            : 1,
 					'price_id'   => isset( $download['price_id'] )   ? $download['price_id']                      : null,
