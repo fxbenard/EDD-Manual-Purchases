@@ -8,6 +8,7 @@ Author: Easy Digital Downloads
 Author URI:  https://easydigitaldownloads.com
 Text Domain: edd-manual-purchases
 Domain Path: languages
+GitHub Plugin URI: https://github.com/fxbenard/EDD-Manual-Purchases
 */
 
 class EDD_Manual_Purchases {
