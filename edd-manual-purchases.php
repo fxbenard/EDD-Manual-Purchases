@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Manual Purchases
 Plugin URI: https://easydigitaldownloads.com/downloads/manual-purchases/
 Description: Provides an admin interface for manually creating purchase orders in Easy Digital Downloads
-Version: 2.0.4
+Version: 2.0.5
 Author: Easy Digital Downloads
 Author URI:  https://easydigitaldownloads.com
 Text Domain: edd-manual-purchases
@@ -42,7 +42,7 @@ class EDD_Manual_Purchases {
 	public function __construct() {
 
 		define( 'EDD_MP_PRODUCT_NAME', 'Manual Purchases' );
-		define( 'EDD_MP_VERSION', '2.0.4' );
+		define( 'EDD_MP_VERSION', '2.0.5' );
 		$this->init();
 
 	}
@@ -687,6 +687,16 @@ class EDD_Manual_Purchases {
 				if ( $user ) {
 					$user_id = $user->ID;
 					$email = $user->user_email;
+				} elseif ( class_exists( 'EDD_Auto_Register' ) ) {
+					$user_info = array(
+						'user_info' => array(
+							'id'         => 0,
+							'email'      => $email,
+							'first_name' => $first,
+							'last_name'  => $last
+						)
+					);
+					$user_id = edd_auto_register()->create_user( $user_info );
 				}
 
 				$customer->create( array(
@@ -701,7 +711,7 @@ class EDD_Manual_Purchases {
 
 			$total                = 0.00;
 			$payment->customer_id = $customer->id;
-			$payment->user_id     = $user_id;
+			$payment->user_id     = $customer->user_id;
 			$payment->first_name  = $first;
 			$payment->last_name   = $last;
 			$payment->email       = $email;
@@ -710,7 +720,7 @@ class EDD_Manual_Purchases {
 			$payment->user_info = array(
 				'first_name' => $first,
 				'last_name'  => $last,
-				'id'         => $user_id,
+				'id'         => $customer->user_id,
 				'email'      => $email,
 			);
 
@@ -732,8 +742,6 @@ class EDD_Manual_Purchases {
 					$item_price = edd_get_download_price( $download['id'] );
 
 				}
-
-				$item_tax   =
 
 				$args = array(
 					'quantity'   => ! empty( $download['quantity'] ) ? absint( $download['quantity'] )            : 1,
