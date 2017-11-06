@@ -3,15 +3,16 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Easy Digital Downloads - Manual Purchases\n"
-"POT-Creation-Date: 2016-10-03 12:44+0200\n"
-"PO-Revision-Date: 2016-10-03 12:44+0200\n"
-"Last-Translator: FX Bénard <fx@fxbenard.com>\n"
-"Language-Team: FX Bénard <fx@fxbenard.com>\n"
+"POT-Creation-Date: 2017-11-06 14:50+0100\n"
+"PO-Revision-Date: 2017-11-06 14:50+0100\n"
+"Last-Translator: fxbenard pour WP-Translations.pro <fx@wp-translations.pro>\n"
+"Language-Team: fxbenard pour WP-Translations.pro <fx@wp-translations.pro>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.0.4\n"
 "X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: edd-manual-purchases.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -216,13 +217,13 @@ msgstr ""
 msgid "Please select a customer or create a new one."
 msgstr ""
 
-#: edd-manual-purchases.php:763
+#: edd-manual-purchases.php:771
 msgid ""
 "The customer does not have sufficient funds in their wallet to pay for this "
 "purchase."
 msgstr ""
 
-#: edd-manual-purchases.php:813
+#: edd-manual-purchases.php:827
 msgid "The payment has been created."
 msgstr ""
 
@@ -241,7 +242,7 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Easy Digital Downloads Team"
+msgid "Easy Digital Downloads"
 msgstr ""
 
 #. Author URI of the plugin/theme
